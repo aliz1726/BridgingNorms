@@ -1,0 +1,312 @@
+[
+  {
+    "cluster": "C - 02",
+    "ids": [
+      26970,
+      26145,
+      14467,
+      4743,
+      22621
+    ],
+    "reasoning": [
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "post in a civilized manner",
+      "be respectful to others",
+      "don't troll, harass, or encourage downvotes",
+      "no personal attacks or uncivil behavior"
+    ]
+  },
+  {
+    "cluster": "C - 06",
+    "ids": [
+      10302,
+      27728,
+      1802,
+      32725,
+      406,
+      24926
+    ],
+    "reasoning": [
+      "be respectful to others",
+      "be friendly",
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "civility",
+      "be polite &amp; practice mutual respect",
+      "be nice"
+    ]
+  },
+  {
+    "cluster": "C - 08",
+    "ids": [
+      12067,
+      28472,
+      23546,
+      9181,
+      10333,
+      2757,
+      33,
+      24188,
+      13494,
+      7688,
+      31579,
+      22106,
+      31648,
+      31884,
+      21138,
+      11793,
+      1182,
+      24222,
+      22401,
+      18524,
+      30130,
+      8804,
+      4398,
+      7723,
+      28766,
+      32959,
+      23932,
+      3445,
+      2574,
+      3545,
+      28615
+    ],
+    "reasoning": [
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "incivility, overly cruel or hostile",
+      "post in a civilized manner",
+      "follow the standards of civility",
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "civility",
+      "personal insults, homophobia, sexism, racism, etc",
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "no hate-speech, personal attacks or harassment",
+      "be kind",
+      "be nice. (don't be a dick.)",
+      "incivility, overly cruel or hostile",
+      "be respectful",
+      "no hate-speech, personal attacks or harassment",
+      "follow the standards of civility",
+      "be respectful",
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "be friendly",
+      "post in a civilized manner",
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "no uncivil behavior, witchhunting, etc",
+      "be respectful to others",
+      "post in a civilized manner",
+      "treat people kindly",
+      "no uncivil behavior, witch hunting, etc",
+      "be respectful to others",
+      "be friendly",
+      "not civil",
+      "do not personally attack fellow redditors; respect privacy, be encouraging, use your manners",
+      "harassment, pestering, insistence upon debate, etc",
+      "r be respectful"
+    ]
+  },
+  {
+    "cluster": "C - 12",
+    "ids": [
+      13150,
+      29132,
+      31323,
+      24619,
+      3303
+    ],
+    "reasoning": [
+      "be nice, be welcoming, and be constructive",
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "post in a civilized manner",
+      "incivility, overly cruel or hostile",
+      "no hate-speech, personal attacks or harassment"
+    ]
+  },
+  {
+    "cluster": "C - 13",
+    "ids": [
+      1923,
+      32002,
+      15802
+    ],
+    "reasoning": [
+      "no hate-speech, personal attacks or harassment",
+      "general conduct",
+      "being a dick"
+    ]
+  },
+  {
+    "cluster": "C - 14",
+    "ids": [
+      31793,
+      15872,
+      14622,
+      10943,
+      25206,
+      16017,
+      27470,
+      4953,
+      19150,
+      29113,
+      4891,
+      16086,
+      32879,
+      20810,
+      13284,
+      24011,
+      5401,
+      14157,
+      32325,
+      23446,
+      15212,
+      13740,
+      10602,
+      31811,
+      28982,
+      29850,
+      17962,
+      22646,
+      912,
+      30174,
+      10642,
+      16885,
+      27878,
+      14627,
+      10750,
+      16750,
+      16310,
+      32894,
+      13983,
+      21484,
+      8769,
+      3469,
+      25375,
+      22159,
+      23860,
+      11107,
+      9162,
+      2367,
+      3528,
+      21279,
+      19677,
+      6202
+    ],
+    "reasoning": [
+      "(r baiting/intentionally inflammatory",
+      "(r uncivil/disrespectful/ad hominem",
+      "incivility, overly cruel or hostile",
+      "being uncivil",
+      "post in a civilized manner",
+      "post in a civilized manner",
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "toxic behavior",
+      "respect one another",
+      "be friendly",
+      "incivility, overly cruel or hostile",
+      "no uncivil behavior, witch hunting, etc",
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "toxic behavior",
+      "incivility, overly cruel or hostile",
+      "civility",
+      "incivility, overly cruel or hostile",
+      "no uncivil behavior, witchhunting, etc",
+      "no abuse / harassment / witch-hunting",
+      "be respectful to others",
+      "no uncivil behavior, witchhunting, etc",
+      "incivility, overly cruel or hostile",
+      "not civil",
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "incivility, overly cruel or hostile",
+      "incivility, overly cruel or hostile",
+      "being uncivil",
+      "incivility, overly cruel or hostile",
+      "post in a civilized manner",
+      "no hate-speech, personal attacks or harassment",
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "incivility, overly cruel or hostile",
+      "civility",
+      "incivility, overly cruel or hostile",
+      "civility",
+      "incivility, overly cruel or hostile",
+      "incivility, overly cruel or hostile",
+      "incivility, overly cruel or hostile",
+      "no hate-speech, personal attacks or harassment",
+      "incivility, overly cruel or hostile",
+      "incivility, overly cruel or hostile",
+      "toxic behavior",
+      "incivility, overly cruel or hostile",
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "disrespectful/objectifying/not constructive",
+      "incivility, overly cruel or hostile",
+      "be friendly",
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "be respectful to others",
+      "incivility, overly cruel or hostile",
+      "incivility, overly cruel or hostile"
+    ]
+  },
+  {
+    "cluster": "C - 16",
+    "ids": [
+      30715,
+      25598,
+      25560
+    ],
+    "reasoning": [
+      "uncivil behavior",
+      "disrespectful/objectifying/not constructive",
+      "disrespectful/objectifying/not constructive"
+    ]
+  },
+  {
+    "cluster": "C - 27",
+    "ids": [
+      31554,
+      9714,
+      18034,
+      2751,
+      14388,
+      17331
+    ],
+    "reasoning": [
+      "incivility, overly cruel or hostile",
+      "no uncivil behavior, witchhunting, etc",
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "derogatory language, purposefully inciting arguments, personal attacks and threats, or griefing",
+      "no uncivil behavior, witchhunting, etc",
+      "rule b -d party/devils advocate/soapboxing (ops only)"
+    ]
+  },
+  {
+    "cluster": "C - 30",
+    "ids": [
+      13019,
+      17587,
+      18515,
+      8595
+    ],
+    "reasoning": [
+      "incivility, overly cruel or hostile",
+      "be kind",
+      "this person is being excessively incivil",
+      "unprofessional, rude, or inappropriate behaviour"
+    ]
+  },
+  {
+    "cluster": "C - 31",
+    "ids": [
+      26285,
+      13051,
+      14982,
+      9455,
+      32475
+    ],
+    "reasoning": [
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "be friendly",
+      "rule b -d party/devils advocate/soapboxing (ops only)",
+      "egregious swearing, name calling, or slurs",
+      "personal attack"
+    ]
+  }
+]

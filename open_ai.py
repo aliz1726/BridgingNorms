@@ -12,8 +12,26 @@ API_URL = "https://openrouter.ai/api/v1/chat/completions"
 MODEL = "gpt-4o-mini" 
 
 # load dataset
-df = pd.read_csv("data_training_selected_clusters_comments_and_rules.csv")
-dataset_text = df.sample(50, random_state=2).to_string() 
+df_reduced = pd.read_csv(
+    "data_training_selected_clusters_comments_and_rules.csv",
+    usecols=['body', 'subreddit_id', 'target_reason', 'label'],
+    index_col=False
+)
+
+dataset_text = df_reduced.sample(120, random_state=2)
+
+# Add the CSV row index as a new column
+dataset_text = dataset_text.reset_index()  # 'index' column now contains original row numbers
+
+dataset_text.rename(columns={"index": "comment_id"}, inplace=True)
+print(dataset_text)
+
+
+
+df_clusters_reduced = pd.read_csv("data_training_selected_clusters_comments_and_rules.csv",
+                usecols=['body', 'subreddit_id', 'assigned_rule_cluster', 'label'])
+
+dataset_cluster_text = df_clusters_reduced.sample(120, random_state=2).to_string() 
 # full data is too much, select random subset
 
 # Initialize conversation with dataset in system prompt
@@ -53,3 +71,4 @@ while True:
 
     print("LLM:", reply)
     conversation.append({"role": "assistant", "content": reply})
+    
