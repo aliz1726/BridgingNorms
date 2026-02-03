@@ -14,11 +14,11 @@ MODEL = "gpt-4o-mini"
 # load dataset
 df_reduced = pd.read_csv(
     "data_training_selected_clusters_comments_and_rules.csv",
-    usecols=['body', 'subreddit_id', 'target_reason', 'label'],
+    usecols=['body', 'subreddit_id', 'label'],
     index_col=False
 )
 
-dataset_text = df_reduced.sample(120, random_state=2)
+dataset_text = df_reduced.sample(120, random_state=5)
 
 # Add the CSV row index as a new column
 dataset_text = dataset_text.reset_index()  # 'index' column now contains original row numbers
