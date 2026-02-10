@@ -22,7 +22,7 @@ HEADERS = {
 
 df = pd.read_csv(
     "data_training_selected_clusters_comments_and_rules.csv",
-    usecols=['body', 'subreddit_id', 'assigned_rule_cluster', 'target_reason'],
+    usecols=['body', 'subreddit_id', 'assigned_rule_cluster'],
     index_col=False
 )
 
@@ -42,8 +42,11 @@ if mode not in ["zero", "few"]:
 
 if mode == "zero":
     few_shot_examples = None
+# llm input
+LLM_INPUT_LOG = []
+LLM_OUTPUT_LOG = []
 
-def llm_cluster_classification(comment, mode="zero", few_shot_examples=None):
+def llm_cluster_classification(comment, comment_id=None, mode="zero", few_shot_examples=None):
     if mode == "few" and few_shot_examples is not None:
         few_shot_prompt = ""
         for _, row in few_shot_examples.iterrows():
@@ -77,26 +80,42 @@ Cluster:
         "messages": messages,
         "temperature": 0
     }
-
+    LLM_INPUT_LOG.append({
+        "comment_id": comment_id,
+        "request": data
+    })
     try:
         response = requests.post(API_URL, headers=HEADERS, json=data)
         response.raise_for_status()
         cluster = response.json()['choices'][0]['message']['content'].strip()
+
+        LLM_OUTPUT_LOG.append({
+            "comment_id": comment_id,
+            "comment": comment,
+            "predicted_cluster": cluster
+        })
+
+
         return cluster
     except Exception as e:
         print(f"LLM error: {e}")
         return "error"
 
-eval_df['predicted_cluster'] = eval_df['body'].apply(
-    lambda x: llm_cluster_classification(x, mode=mode, few_shot_examples=few_shot_examples)
+eval_df["predicted_cluster"] = eval_df.apply(
+    lambda row: llm_cluster_classification(
+        row["body"],
+        comment_id=row["comment_id"],
+        mode=mode,
+        few_shot_examples=few_shot_examples
+    ),
+    axis=1
 )
 
 output = []
 for cluster, group in eval_df.groupby('predicted_cluster'):
     output.append({
         "cluster": cluster,
-        "ids": group['comment_id'].tolist(),
-        "reasoning": group['target_reason'].tolist()
+        "ids": group['comment_id'].tolist()
     })
 
 eval_df['assigned_cluster_norm'] = eval_df['assigned_rule_cluster'].astype(str).str.strip()
@@ -145,3 +164,13 @@ with open("cluster_classification_results.json", "w") as f:
     json.dump(output, f, indent=2)
 
 print("\nSaved to cluster_classification_results.json")
+
+with open("llm_inputs.json", "w") as f:
+    json.dump(LLM_INPUT_LOG, f, indent=2)
+
+print("Saved LLM inputs → llm_inputs.json")
+
+with open("llm_outputs.json", "w") as f:
+    json.dump(LLM_OUTPUT_LOG, f, indent=2)
+
+print("Saved LLM outputs → llm_outputs.json")
