@@ -3,6 +3,7 @@ import requests
 import pandas as pd
 import json
 import re
+import argparse
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -34,8 +35,16 @@ few_shot_pool = df.drop(eval_df.index)
 
 few_shot_examples = few_shot_pool[['body', 'assigned_rule_cluster']] \
     .sample(20, random_state=1)
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "mode",
+    choices=["zero", "few"],
+    help="Classification mode"
+)
+args = parser.parse_args()
 
-mode = input("Choose classification mode ('zero' or 'few'): ").strip().lower()
+mode = args.mode
+
 if mode not in ["zero", "few"]:
     print("Invalid input, defaulting to zero-shot")
     mode = "zero"
