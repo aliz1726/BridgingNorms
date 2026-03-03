@@ -1,0 +1,608 @@
+{
+  "community_a": "t5_2xhvq",
+  "community_b": "t5_2w2s8",
+  "prompt": "Below there is a list of 100 tuples with format (comment id, comment text, community id). These tuples represent comments from an online discussion platform from two different community ids.\n\nHere are the comments:\n(T3263, \"This guy is the biggest loser I've ever heard of. Also there are more jobs than people these days, he's a liar too.\", t5_2xhvq)\n(T8997, \"es ist traurig das man nicht mit schmunzeln kann weil \u00fcberl\u00f6scheifrige L\u00f6schm\u00e4nner keinen Humor haben obwohl Karl selbst Galgenhumor hatte\", t5_2xhvq)\n(T18254, \"YTA - you won\u2019t be seeing much of him when he has a choice between staying with you and his mom.\n\nSeriously? You called your CHILD trashy? Fuck you.\", t5_2xhvq)\n(T5819, \"Ah, you\u2019re defending him because you\u2019re also a creep from a line of creeps.\", t5_2xhvq)\n(T6048, \"How long is it typically between trains if you miss it?\", t5_2w2s8)\n(T14379, \"You are not an asshole, no, no, no.... You are a walking garbage.\", t5_2xhvq)\n(T3632, \"Nice Noobo! Congrats!!!!(\uff89\u25d5\u30ee\u25d5)\uff89*.\u2727\", t5_2w2s8)\n(T12941, \"This is really faulty logic and frankly there\u2019s something twisted about wanting to expand what warrants the death penalty. Clearly you are someone whose idea of \u201cjustice\u201d is \u201cheavy punishment.\u201d\", t5_2w2s8)\n(T12536, \"That's a funny way to say \"I didn't read the OP\".\", t5_2w2s8)\n(T30568, \"Having *lived* in rural New Brunswick, also agree.\", t5_2w2s8)\n(T23972, \"[deleted]\", t5_2w2s8)\n(T1414, \"China is designated as a developing country. It\u2019s a term. You\u2019re the one that sounds uneducated here.\", t5_2w2s8)\n(T11332, \"Imagine thinking your childish online presence actually affects literally anyone irl lmaooooooo\", t5_2w2s8)\n(T48, \"And I'm here for it. Do it Baalke! You don't want Jim Harbaugh's guy!\", t5_2xhvq)\n(T29799, \"It\u2019s painfully obvious to anyone reading this that you\u2019re just a homophobe hiding it behind flowery language.\", t5_2w2s8)\n(T23548, \"it's not my fault you look like a loser\ud83e\udd37\ud83c\udffb\", t5_2xhvq)\n(T10653, \"Then you and your viewpoint is as worthless as I say it is. You stand for nothing, you\u2019ll fall for anything.\", t5_2w2s8)\n(T26337, \"You mispelled INFANT as husband, and BOTTLE as coffee.\n\nNTA\n\nYour child needs a diaper change, and too grow up.\", t5_2xhvq)\n(T31361, \"The title hurt your brain? I wonder how small it must be \ud83d\udc80\", t5_2xhvq)\n(T5611, \"Tell me something. Are you asking for your friend or yourself?\", t5_2w2s8)\n(T32832, \"Child nobody said shit to you go suck a dick\", t5_2xhvq)\n(T25296, \"\ud83d\ude02 I never said it was canceled in 1999 you poor weirdo! What is your problem?\", t5_2w2s8)\n(T242, \"ESH but the girlfriend is a loser.\", t5_2xhvq)\n(T793, \"huh good idea. i'd prefer not to shuffle through and look at the deck honestly i feel that ruins the randomness if i perceive it. what would you say is a scorpio card?\", t5_2w2s8)\n(T15627, \"[deleted]\", t5_2w2s8)\n(T14721, \"&gt; all cops are bastards\n\n-\n\n&gt; Are you capable of arguing like an adult?\n\nThe irony is incredible\", t5_2w2s8)\n(T13088, \"Sad, sad post. Pathetic.\", t5_2w2s8)\n(T10885, \"Singed with Morello and poison seems to be able to stop him as well\", t5_2w2s8)\n(T14719, \"You just lack empathy.\", t5_2w2s8)\n(T23811, \" Best Contemporary Building\", t5_2w2s8)\n(T14316, \"So the only reason to get with a guy is to feel protected. You must\u2019ve had a shit life. I feel sorry for you.\", t5_2w2s8)\n(T6263, \"Oh go outside and touch grass. \n\nThey executed that perfectly, and you know how it worked? Because the kid connected the dots and apologized on his own and is making a effort now. \nDon\u2019t be thick, dude.\", t5_2xhvq)\n(T10860, \"You are extremely condescending and unable to answer my simple question, so I don\u2019t think you have anything valuable to add here. Thanks for trying though.\", t5_2w2s8)\n(T4826, \"Are you a professional idiot or just a gifted amateur?\", t5_2w2s8)\n(T20776, \"Rae shared her relationship with OP. Don\u2019t be on this page if you spell like a 10 year old.\", t5_2xhvq)\n(T16629, \"NTA\n\nPlease don't spend the rest of your life with an overgrown baby.\", t5_2xhvq)\n(T18885, \"!xferkarma\", t5_2xhvq)\n(T5545, \"Yup, that\u2019s still an incredibly stupid argument.  \n\n\u201cYou care about something\u2019s costs to society?  Why don\u2019t you want people to die then?\u201d\n\nI\u2019ve seen people on this site argue that the world is flat, and your argument is still the dumbest argument I\u2019ve ever seen on this site.\", t5_2w2s8)\n(T18466, \">User Reports  \n>  \n>1: It's targeted harassment at someone else\n\nThis isn't a repeated insult, nor harassment. Comment approved.\", t5_2w2s8)\n(T2743, \"What do you mean SCP-173? Are you sure that you're feeling alright researcher? I think you should follow me to the site pharmacy\n*dials up site director*\nWe got another one boss. For the third time this week, get Memetics on this, this never has been what 173 looks like.\", t5_2xhvq)\n(T26508, \"NTA. He wants you to punish a 21 year old MAN? For telling the truth? You know you're NTA. maybe your FIL should try not behaving like a douche.\", t5_2xhvq)\n(T17057, \"You added words dude. I know you think you are right but you are bad at this. Only your fellow confederates think you are scoring points. Was that racists?\", t5_2w2s8)\n(T24659, \"You\u2019re so helpful, thanks \ud83d\ude12\", t5_2xhvq)\n(T29392, \"You sound like an incel.\", t5_2w2s8)\n(T11798, \"\u201cShe mentioned a few times when I was a kid that I had dips on it\u201d learn to read.\", t5_2xhvq)\n(T988, \"You being a pussy isn't an argument.\", t5_2w2s8)\n(T31165, \"Sorry\u2026 I don\u2019t speak Australian\", t5_2w2s8)\n(T4770, \"[deleted]\", t5_2w2s8)\n(T25191, \"In that case, I think we both lost. \ud83e\udd23\", t5_2xhvq)\n(T19384, \"\ud83d\ude2dbro...\", t5_2w2s8)\n(T4624, \"&gt; You sound young, and I get it, it takes time to get over the puritanical, shameful, \u201csex is bad/sacred\u201d\n\nYou sound like you're carrying a torch for someone that sleeps around with others instead of you. I get it, you're trying to rationalize your cuckness.\", t5_2w2s8)\n(T25125, \"All I can say is you are a cruel, narcissistic, sociopathic AH. YTA.\", t5_2xhvq)\n(T20359, \"Bro were number 11. . . You don't think thats a problem?\", t5_2xhvq)\n(T15333, \"More like Katy Cringe\", t5_2w2s8)\n(T26234, \"The Book Centre in Waterford is mighty\", t5_2w2s8)\n(T17199, \"Or the king of England?\", t5_2w2s8)\n(T29495, \"[When a Scot Ties the Knot](https://www.goodreads.com/book/show/23587120-when-a-scot-ties-the-knot)\", t5_2w2s8)\n(T32676, \"4 days are common for us Air Force folks for holidays.\", t5_2xhvq)\n(T2720, \"Christ man. I\u2019m just gonna block you rather than waste my time on racist trash.\", t5_2w2s8)\n(T14574, \"Fair. But then why the oppo hits?\", t5_2xhvq)\n(T4595, \"Hello :)\", t5_2w2s8)\n(T20536, \"Lee is also proud, he never wanted those statues up to begin with\", t5_2xhvq)\n(T25198, \"Then you're a snowflake.\", t5_2xhvq)\n(T20092, \"YTA. How awful can you be.\", t5_2xhvq)\n(T15888, \"They'd ban you on any flimsy pretence. You've become one of our arch-propagandists (and I am 9001% here for it). Solidarity!\", t5_2xhvq)\n(T27350, \"&gt;Oops, sorry, does that hurt your feelings?\n\nWhat the fuck is wrong with you?\n\nYou're unhinged.  I was just reiterating what you wrote.  Crawl back to your therapist and get some help.\", t5_2xhvq)\n(T9027, \"Thank you for the reply. What about new players? If someone wants to buy minecraft, do they have to install the new launcher or will it go through the old one?\", t5_2xhvq)\n(T28854, \"VA is more buff and darker\", t5_2w2s8)\n(T31089, \"You\u2019ve basically spouted off all the leftist talking points.  Do you have an original thought or have we reached the end of your NPC dialog chain?\", t5_2xhvq)\n(T19027, \"So is the UN gonna actually step in now?\", t5_2xhvq)\n(T24142, \"How do you feel about Sana's new gunpla that's coming out in a few months?  Aesthetically, it looks like it outdoes the Areus.\", t5_2w2s8)\n(T27866, \"What do you guys think about racists who don\u2019t act on it or spread their ideas and don\u2019t appear to be racist?\", t5_2w2s8)\n(T26699, \"o wow\", t5_2xhvq)\n(T17530, \"is it just me who tends to combine james duckworth, john millman, and jordan thompson into one person\", t5_2xhvq)\n(T8851, \"What place are you on the leader board? And Cg!\", t5_2w2s8)\n(T28624, \"You\u2019re a fuckin moron\", t5_2xhvq)\n(T11282, \"Taking offers\", t5_2xhvq)\n(T20504, \"I hadn't tried really bearing down. I was warned my someone else that with a 6/8 hollow the little flex in the blade will keep the edge from sharpening. \n\nI tested with arm hair, which it couldn't shave, but also I tried to shave and it didn't even pull, let alone cut hair.\", t5_2xhvq)\n(T2825, \"This post has lots of good energy so I\u2019m posting the !masterpost for folks who want to follow the UB tek from shroomscout\", t5_2w2s8)\n(T19474, \"Totally forgot about them having twin blades! Is this a sign for them to come?\", t5_2xhvq)\n(T23901, \"You let your mother take over your house, your marriage, your bedroom time with your wife; and wonder why your wife is annoyed at your mother and you?\nNot only are YTA, which you are; you're an idiot.\", t5_2xhvq)\n(T9583, \"Ah, sabi ko tayong mga Filipino matitigas ang ulo.. inuuna pride kaysa magisip ng solution at plano.. out of politics ho iyon.. gets mo na?\", t5_2xhvq)\n(T20828, \"Mutterphickend kantices maimai.\", t5_2w2s8)\n(T19540, \"Ben de b\u00f6le destek olay\u0131m :)\", t5_2xhvq)\n(T32111, \"\ud83d\udc46 least oversensitive mod\", t5_2xhvq)\n(T18816, \"Don't know if you have kids, but he'd make a great dad. Already got the jokes on lock.\", t5_2w2s8)\n(T24720, \"Det er alts\u00e5 ikke rigtigt. Ja, man kan s\u00f8ge om pr\u00f8vel\u00f8sladelse efter 2/3 af straffen, men det er ikke sikkert at det bliver im\u00f8dekommet, og det er ikke alle der s\u00f8ger.\", t5_2w2s8)\n(T7459, \"That dumdbway shit take me back to when i was out there....gon off dem jiggaz up 6 days aint shit shaved or bathed, grindin, jackin, man as fucked up as them times could have been i wouldn't change it for the world....rip all my niggaz i lost\", t5_2w2s8)\n(T27671, \"Name a better duo, idiotic liberals and calling everything they don't like misogynistic\n\nYeah, your hope is correct; I'm a test tube baby that strictly had no interaction with females. I'm now on a special register that alerts women in a 50 mile radius about my presence\", t5_2xhvq)\n(T12905, \"Yikes this is gross. Why do you give human life more value than an animal life? Humans are a terrible parasite to this planet and animals are innocent and do no wrong. That\u2019s really messed up that you hold more value to one life than the other. Your clearly not an animal lover.\", t5_2w2s8)\n(T14733, \"Also ich definiere als normaler, vern\u00fcnftiger Mensch das als innerorts was halt nunmal als innerorts gilt.\n\nIch sag auch nicht ich red \u00fcber Pilze wenn ich eigentlich f\u00fcr mich selber in meinem Kopf nur an Fliegenpilze denke.\", t5_2xhvq)\n(T18011, \"Ahh ok. Yeah I mean it\u2019s enticing. Either this, the photon mono, for normal Mars. Definitely like the idea of a slightly bigger build volume and monk screen for $230 tho. Is the plastic vat that much of a con?\", t5_2xhvq)\n(T17112, \"Ugh loveee these. How are they getting on so far??\", t5_2w2s8)\n(T24798, \"you are very dumb she has said she is not comfortable with him touching her stomach he is not going to die if he doesn't touch her stoomach he can bond with the baby when its out\", t5_2xhvq)\n(T19083, \"Teach me\", t5_2w2s8)\n(T12713, \"YTA and an idiot. Skin is skin. \u201cFeminine\u201d products are usually lower quality and cost more. Leave her alone.\", t5_2xhvq)\n(T338, \"Solution Verified\", t5_2w2s8)\n(T18265, \"Be angry about the movie, but be just as angry about all of the other ways it happens too.\", t5_2xhvq)\n(T23681, \"Du wei\u00dft nicht, ob Du einen Anwalt hast? WTF? Hast Du einen beauftragt oder nicht? (Du merkst das, der will n\u00e4mlich Geld von Dir!) So auf Zuruf macht das Arbeitsgericht nichts f\u00fcr Dich. Schon gar keine Klagen. \", t5_2xhvq)\n(T8801, \"You\u2019re not a doctor, shut up\", t5_2xhvq)\n\nAll these comments have been moderated and removed because they were considered disrespectful. How does each community define disrespect? Focus on what makes each community's definition different from the other:\n\nPlease output the information a dictionary format with the following key-value pairs:\ncomm_a_desc: [Definition of the norm as particularly understood in Community A]\ncomm_a_ids: [list of all comments ids from Community 0 that represent this speech norm in brackets (ie. [A23, A41]), without returning the comment text]\ncomm_b_desc: [Definition of the norm as particularly understood in Community B]\ncomm_b_ids: [list of all comments ids from Community 1 that represent this speech norm in brackets (ie. [B42, B630]), without returning the comment text]\n\nMake sure to cite only comments from community A\u2013those ids that begin with the letter A in the list of comments for community A. And similarly for B\u2013those ids that begin with the letter B in the list of comments for community B.\n",
+  "raw_response": "```python\n{\n    \"comm_a_desc\": \"In Community A, disrespect is characterized by personal attacks, derogatory remarks, and a lack of empathy towards others. Comments that belittle individuals or resort to name-calling are particularly frowned upon.\",\n    \"comm_a_ids\": [\n        \"T3263\", \n        \"T18254\", \n        \"T14379\", \n        \"T26337\", \n        \"T32832\", \n        \"T242\", \n        \"T6263\", \n        \"T16629\", \n        \"T25125\", \n        \"T20092\", \n        \"T15888\", \n        \"T27350\", \n        \"T31089\", \n        \"T23901\", \n        \"T9583\", \n        \"T27671\", \n        \"T24798\", \n        \"T12713\", \n        \"T18265\", \n        \"T8801\"\n    ],\n    \"comm_b_desc\": \"In Community B, disrespect is defined by condescending comments, dismissive language, and a failure to engage in constructive dialogue. Comments that undermine others' opinions or display arrogance are considered disrespectful.\",\n    \"comm_b_ids\": [\n        \"T6048\", \n        \"T3632\", \n        \"T12941\", \n        \"T12536\", \n        \"T30568\", \n        \"T1414\", \n        \"T11332\", \n        \"T29799\", \n        \"T10653\", \n        \"T5611\", \n        \"T25296\", \n        \"T15627\", \n        \"T14721\", \n        \"T13088\", \n        \"T10885\", \n        \"T14719\", \n        \"T23811\", \n        \"T5545\", \n        \"T18466\", \n        \"T17057\", \n        \"T29392\", \n        \"T988\", \n        \"T31165\", \n        \"T4770\", \n        \"T19384\", \n        \"T4624\", \n        \"T15333\", \n        \"T26234\", \n        \"T17199\", \n        \"T24142\", \n        \"T27866\", \n        \"T8851\", \n        \"T28854\", \n        \"T19027\", \n        \"T12905\", \n        \"T14733\", \n        \"T18011\", \n        \"T17112\", \n        \"T19083\", \n        \"T338\"\n    ]\n}\n```",
+  "input_comments": [
+    {
+      "comment_id": "T3263",
+      "text": "This guy is the biggest loser I've ever heard of. Also there are more jobs than people these days, he's a liar too.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T8997",
+      "text": "es ist traurig das man nicht mit schmunzeln kann weil \u00fcberl\u00f6scheifrige L\u00f6schm\u00e4nner keinen Humor haben obwohl Karl selbst Galgenhumor hatte",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T18254",
+      "text": "YTA - you won\u2019t be seeing much of him when he has a choice between staying with you and his mom.\n\nSeriously? You called your CHILD trashy? Fuck you.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T5819",
+      "text": "Ah, you\u2019re defending him because you\u2019re also a creep from a line of creeps.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T6048",
+      "text": "How long is it typically between trains if you miss it?",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T14379",
+      "text": "You are not an asshole, no, no, no.... You are a walking garbage.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T3632",
+      "text": "Nice Noobo! Congrats!!!!(\uff89\u25d5\u30ee\u25d5)\uff89*.\u2727",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T12941",
+      "text": "This is really faulty logic and frankly there\u2019s something twisted about wanting to expand what warrants the death penalty. Clearly you are someone whose idea of \u201cjustice\u201d is \u201cheavy punishment.\u201d",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T12536",
+      "text": "That's a funny way to say \"I didn't read the OP\".",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T30568",
+      "text": "Having *lived* in rural New Brunswick, also agree.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T23972",
+      "text": "[deleted]",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T1414",
+      "text": "China is designated as a developing country. It\u2019s a term. You\u2019re the one that sounds uneducated here.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T11332",
+      "text": "Imagine thinking your childish online presence actually affects literally anyone irl lmaooooooo",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T48",
+      "text": "And I'm here for it. Do it Baalke! You don't want Jim Harbaugh's guy!",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T29799",
+      "text": "It\u2019s painfully obvious to anyone reading this that you\u2019re just a homophobe hiding it behind flowery language.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T23548",
+      "text": "it's not my fault you look like a loser\ud83e\udd37\ud83c\udffb",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T10653",
+      "text": "Then you and your viewpoint is as worthless as I say it is. You stand for nothing, you\u2019ll fall for anything.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T26337",
+      "text": "You mispelled INFANT as husband, and BOTTLE as coffee.\n\nNTA\n\nYour child needs a diaper change, and too grow up.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T31361",
+      "text": "The title hurt your brain? I wonder how small it must be \ud83d\udc80",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T5611",
+      "text": "Tell me something. Are you asking for your friend or yourself?",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T32832",
+      "text": "Child nobody said shit to you go suck a dick",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T25296",
+      "text": "\ud83d\ude02 I never said it was canceled in 1999 you poor weirdo! What is your problem?",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T242",
+      "text": "ESH but the girlfriend is a loser.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T793",
+      "text": "huh good idea. i'd prefer not to shuffle through and look at the deck honestly i feel that ruins the randomness if i perceive it. what would you say is a scorpio card?",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T15627",
+      "text": "[deleted]",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T14721",
+      "text": "&gt; all cops are bastards\n\n-\n\n&gt; Are you capable of arguing like an adult?\n\nThe irony is incredible",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T13088",
+      "text": "Sad, sad post. Pathetic.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T10885",
+      "text": "Singed with Morello and poison seems to be able to stop him as well",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T14719",
+      "text": "You just lack empathy.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T23811",
+      "text": " Best Contemporary Building",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T14316",
+      "text": "So the only reason to get with a guy is to feel protected. You must\u2019ve had a shit life. I feel sorry for you.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T6263",
+      "text": "Oh go outside and touch grass. \n\nThey executed that perfectly, and you know how it worked? Because the kid connected the dots and apologized on his own and is making a effort now. \nDon\u2019t be thick, dude.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T10860",
+      "text": "You are extremely condescending and unable to answer my simple question, so I don\u2019t think you have anything valuable to add here. Thanks for trying though.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T4826",
+      "text": "Are you a professional idiot or just a gifted amateur?",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T20776",
+      "text": "Rae shared her relationship with OP. Don\u2019t be on this page if you spell like a 10 year old.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T16629",
+      "text": "NTA\n\nPlease don't spend the rest of your life with an overgrown baby.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T18885",
+      "text": "!xferkarma",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T5545",
+      "text": "Yup, that\u2019s still an incredibly stupid argument.  \n\n\u201cYou care about something\u2019s costs to society?  Why don\u2019t you want people to die then?\u201d\n\nI\u2019ve seen people on this site argue that the world is flat, and your argument is still the dumbest argument I\u2019ve ever seen on this site.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T18466",
+      "text": ">User Reports  \n>  \n>1: It's targeted harassment at someone else\n\nThis isn't a repeated insult, nor harassment. Comment approved.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T2743",
+      "text": "What do you mean SCP-173? Are you sure that you're feeling alright researcher? I think you should follow me to the site pharmacy\n*dials up site director*\nWe got another one boss. For the third time this week, get Memetics on this, this never has been what 173 looks like.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T26508",
+      "text": "NTA. He wants you to punish a 21 year old MAN? For telling the truth? You know you're NTA. maybe your FIL should try not behaving like a douche.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T17057",
+      "text": "You added words dude. I know you think you are right but you are bad at this. Only your fellow confederates think you are scoring points. Was that racists?",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T24659",
+      "text": "You\u2019re so helpful, thanks \ud83d\ude12",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T29392",
+      "text": "You sound like an incel.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T11798",
+      "text": "\u201cShe mentioned a few times when I was a kid that I had dips on it\u201d learn to read.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T988",
+      "text": "You being a pussy isn't an argument.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T31165",
+      "text": "Sorry\u2026 I don\u2019t speak Australian",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T4770",
+      "text": "[deleted]",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T25191",
+      "text": "In that case, I think we both lost. \ud83e\udd23",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T19384",
+      "text": "\ud83d\ude2dbro...",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T4624",
+      "text": "&gt; You sound young, and I get it, it takes time to get over the puritanical, shameful, \u201csex is bad/sacred\u201d\n\nYou sound like you're carrying a torch for someone that sleeps around with others instead of you. I get it, you're trying to rationalize your cuckness.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T25125",
+      "text": "All I can say is you are a cruel, narcissistic, sociopathic AH. YTA.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T20359",
+      "text": "Bro were number 11. . . You don't think thats a problem?",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T15333",
+      "text": "More like Katy Cringe",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T26234",
+      "text": "The Book Centre in Waterford is mighty",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T17199",
+      "text": "Or the king of England?",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T29495",
+      "text": "[When a Scot Ties the Knot](https://www.goodreads.com/book/show/23587120-when-a-scot-ties-the-knot)",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T32676",
+      "text": "4 days are common for us Air Force folks for holidays.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T2720",
+      "text": "Christ man. I\u2019m just gonna block you rather than waste my time on racist trash.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T14574",
+      "text": "Fair. But then why the oppo hits?",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T4595",
+      "text": "Hello :)",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T20536",
+      "text": "Lee is also proud, he never wanted those statues up to begin with",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T25198",
+      "text": "Then you're a snowflake.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T20092",
+      "text": "YTA. How awful can you be.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T15888",
+      "text": "They'd ban you on any flimsy pretence. You've become one of our arch-propagandists (and I am 9001% here for it). Solidarity!",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T27350",
+      "text": "&gt;Oops, sorry, does that hurt your feelings?\n\nWhat the fuck is wrong with you?\n\nYou're unhinged.  I was just reiterating what you wrote.  Crawl back to your therapist and get some help.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T9027",
+      "text": "Thank you for the reply. What about new players? If someone wants to buy minecraft, do they have to install the new launcher or will it go through the old one?",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T28854",
+      "text": "VA is more buff and darker",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T31089",
+      "text": "You\u2019ve basically spouted off all the leftist talking points.  Do you have an original thought or have we reached the end of your NPC dialog chain?",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T19027",
+      "text": "So is the UN gonna actually step in now?",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T24142",
+      "text": "How do you feel about Sana's new gunpla that's coming out in a few months?  Aesthetically, it looks like it outdoes the Areus.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T27866",
+      "text": "What do you guys think about racists who don\u2019t act on it or spread their ideas and don\u2019t appear to be racist?",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T26699",
+      "text": "o wow",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T17530",
+      "text": "is it just me who tends to combine james duckworth, john millman, and jordan thompson into one person",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T8851",
+      "text": "What place are you on the leader board? And Cg!",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T28624",
+      "text": "You\u2019re a fuckin moron",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T11282",
+      "text": "Taking offers",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T20504",
+      "text": "I hadn't tried really bearing down. I was warned my someone else that with a 6/8 hollow the little flex in the blade will keep the edge from sharpening. \n\nI tested with arm hair, which it couldn't shave, but also I tried to shave and it didn't even pull, let alone cut hair.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T2825",
+      "text": "This post has lots of good energy so I\u2019m posting the !masterpost for folks who want to follow the UB tek from shroomscout",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T19474",
+      "text": "Totally forgot about them having twin blades! Is this a sign for them to come?",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T23901",
+      "text": "You let your mother take over your house, your marriage, your bedroom time with your wife; and wonder why your wife is annoyed at your mother and you?\nNot only are YTA, which you are; you're an idiot.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T9583",
+      "text": "Ah, sabi ko tayong mga Filipino matitigas ang ulo.. inuuna pride kaysa magisip ng solution at plano.. out of politics ho iyon.. gets mo na?",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T20828",
+      "text": "Mutterphickend kantices maimai.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T19540",
+      "text": "Ben de b\u00f6le destek olay\u0131m :)",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T32111",
+      "text": "\ud83d\udc46 least oversensitive mod",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T18816",
+      "text": "Don't know if you have kids, but he'd make a great dad. Already got the jokes on lock.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T24720",
+      "text": "Det er alts\u00e5 ikke rigtigt. Ja, man kan s\u00f8ge om pr\u00f8vel\u00f8sladelse efter 2/3 af straffen, men det er ikke sikkert at det bliver im\u00f8dekommet, og det er ikke alle der s\u00f8ger.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T7459",
+      "text": "That dumdbway shit take me back to when i was out there....gon off dem jiggaz up 6 days aint shit shaved or bathed, grindin, jackin, man as fucked up as them times could have been i wouldn't change it for the world....rip all my niggaz i lost",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T27671",
+      "text": "Name a better duo, idiotic liberals and calling everything they don't like misogynistic\n\nYeah, your hope is correct; I'm a test tube baby that strictly had no interaction with females. I'm now on a special register that alerts women in a 50 mile radius about my presence",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T12905",
+      "text": "Yikes this is gross. Why do you give human life more value than an animal life? Humans are a terrible parasite to this planet and animals are innocent and do no wrong. That\u2019s really messed up that you hold more value to one life than the other. Your clearly not an animal lover.",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T14733",
+      "text": "Also ich definiere als normaler, vern\u00fcnftiger Mensch das als innerorts was halt nunmal als innerorts gilt.\n\nIch sag auch nicht ich red \u00fcber Pilze wenn ich eigentlich f\u00fcr mich selber in meinem Kopf nur an Fliegenpilze denke.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T18011",
+      "text": "Ahh ok. Yeah I mean it\u2019s enticing. Either this, the photon mono, for normal Mars. Definitely like the idea of a slightly bigger build volume and monk screen for $230 tho. Is the plastic vat that much of a con?",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T17112",
+      "text": "Ugh loveee these. How are they getting on so far??",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T24798",
+      "text": "you are very dumb she has said she is not comfortable with him touching her stomach he is not going to die if he doesn't touch her stoomach he can bond with the baby when its out",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T19083",
+      "text": "Teach me",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T12713",
+      "text": "YTA and an idiot. Skin is skin. \u201cFeminine\u201d products are usually lower quality and cost more. Leave her alone.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T338",
+      "text": "Solution Verified",
+      "community": "t5_2w2s8",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T18265",
+      "text": "Be angry about the movie, but be just as angry about all of the other ways it happens too.",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T23681",
+      "text": "Du wei\u00dft nicht, ob Du einen Anwalt hast? WTF? Hast Du einen beauftragt oder nicht? (Du merkst das, der will n\u00e4mlich Geld von Dir!) So auf Zuruf macht das Arbeitsgericht nichts f\u00fcr Dich. Schon gar keine Klagen. ",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    },
+    {
+      "comment_id": "T8801",
+      "text": "You\u2019re not a doctor, shut up",
+      "community": "t5_2xhvq",
+      "status": "violation"
+    }
+  ]
+}

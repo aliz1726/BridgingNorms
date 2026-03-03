@@ -181,14 +181,38 @@ If the norm is restrictive, please write it in the form of: "No [action/behavior
 Here are the comments:
 {comment_list}
 
-Please output the information in the following format:
-Norm [Norm Number]: [Norm Name, parsed as either restrictive or prescriptive]
-- Definition of Norm: [General description of the norm]
-- Community 0: [Definition as particularly understood in Community 0]
-  – Relevant Comments for Community 0 definition: [list of all comments ids from Community 0 that meet and define this speech norm, without returning the comment text]
-- Community 1: [Definition as particularly understood in Community 1]
-  – Relevant Comments for Community 1 definition: [list of all comments ids from Community 1 that meet and define this speech norm, without returning the comment text]
+""" + """
+
+Please output the information in the following format, as a json file, with one element per extracted norm.
+
+output = [
+
+{   
+    "Norm 1": "[Norm Name, parsed as either restrictive or prescriptive]",
+    "Community 0": "[Definition as particularly understood in Community 0]"
+    "Community 0 Citations": "Relevant Comments for Community 0 definition: [list of all comments ids from Community 0 that meet and define this speech norm, without returning the comment text]"
+    "Community 1": "[Definition as particularly understood in Community 1]"
+    "Community 1 Citations": "Relevant Comments for Community 1 definition: [list of all comments ids from Community 1 that meet and define this speech norm, without returning the comment text]"
+
+},
+
+{   
+    "Norm [new norm number]": "[Norm Name, parsed as either restrictive or prescriptive]",
+    "Community 0": "[Definition as particularly understood in Community 0]"
+    "Community 0 Citations": "Relevant Comments for Community 0 definition: [list of all comments ids from Community 0 that meet and define this speech norm, without returning the comment text]"
+    "Community 1": "[Definition as particularly understood in Community 1]"
+    "Community 1 Citations": "Relevant Comments for Community 1 definition: [list of all comments ids from Community 1 that meet and define this speech norm, without returning the comment text]"
+
+}
+]
 """
+# try to fix common issues, otherwise rerun
+
+# response = llm output
+# response = json.loads(response)
+# response["Community 0 Citations"] –>> 
+
+# same output, but put norms into a json
         return prompt
     
     def create_task2_prompt(
@@ -473,6 +497,28 @@ comment_ids: [List of relevant comment IDs in brackets]
         
         return float(similarity)
     
+    def run_task(
+        self,
+        df: pd.DataFrame,
+        community_a: str,
+        community_b: str,
+        task_name: str,
+        task_desc: str,
+        n_samples: int = 100,
+        num_norms: int = 5,
+        max_length: Optional[int] = None,
+        verbose: bool = True
+    ) -> Dict:
+        
+        if task_name == "task_1":
+            None
+        
+        if task_name == "task_2":
+            None
+        
+
+        
+
     def run_task1(
         self,
         df: pd.DataFrame,
@@ -489,15 +535,40 @@ comment_ids: [List of relevant comment IDs in brackets]
         Returns:
             Dictionary with results and metrics
         """
-        print(f"Sampling comments from {community_a} and {community_b}...")
+        run_log = {
+            "warnings": [],
+            "communities": {},
+            "task": {
+                "name": "task1_shared_norms",
+                "community_a": community_a,
+                "community_b": community_b,
+                "n_samples": 50,
+                "num_norms": 5,
+                "max_length": 280
+            },
+            "sampling": {},
+            "prompt": None,
+            "llm_call": {},
+        }
+        run_log["sampling"]["message"] = (
+            f"Sampling comments from {community_a} and {community_b}"
+        )
         comments = self.sample_comments(
             df, community_a, community_b,
             n_samples=n_samples,
             max_length=max_length
         )
-        
+        run_log["sampling"]["total_sampled"] = len(comments)
+        run_log["sampling"]["comments"] = [
+            {
+                "id": cid,
+                "community": comm,
+                "status": status
+            }
+            for cid, _, comm, status in comments
+        ]
         if len(comments) == 0:
-            print("ERROR: No comments sampled!")
+            run_log["warnings"].append("No comments sampled")
             return {
                 'norms': {},
                 'metrics': {},
@@ -505,10 +576,10 @@ comment_ids: [List of relevant comment IDs in brackets]
                 'input_comments': []
             }
         
-        print(f"Sampled {len(comments)} comments total")
+        # print(f"Sampled {len(comments)} comments total")
         
-        print("Creating prompt...")
         prompt = self.create_task1_prompt(comments, num_norms=num_norms)
+        run_log["prompt"] = prompt
         
         if verbose:
             print(f"\n{'='*60}")
@@ -516,8 +587,8 @@ comment_ids: [List of relevant comment IDs in brackets]
             print(prompt)
             print(f"{'='*60}\n")
         
-        print("Calling LLM...")
         response = self.call_llm(prompt)
+        run_log["llm_call"]["raw_response"] = response
         
         if verbose:
             print(f"\n{'='*60}")
@@ -525,18 +596,18 @@ comment_ids: [List of relevant comment IDs in brackets]
             print(response)
             print(f"{'='*60}\n")
         
-        print("Parsing response...")
         parsed = self.parse_task1_response(response)
-        
+        run_log["llm_call"]["parsed_norms"] = parsed
         if not parsed:
-            print("WARNING: Parsing returned empty results!")
-            print("This might be a parsing issue. Check the raw response above.")
+            run_log["warnings"].append("Parsing returned empty results")
         else:
-            print(f"Successfully parsed {len(parsed)} norms")
+            run_log["llm_call"]["num_norms_parsed"] = len(parsed)
         
-        print("Calculating metrics...")
         metrics = self.calculate_metrics(parsed, comments, task=1)
-        
+        run_log["metrics"] = metrics
+
+        with open("task1_run_log.json", "w") as f:
+            json.dump(run_log, f, indent=2)
         return {
             'norms': parsed,
             'metrics': metrics,
@@ -544,6 +615,7 @@ comment_ids: [List of relevant comment IDs in brackets]
             'input_comments': comments,
             'prompt': prompt 
         }
+    
     def run_task2(
         self,
         df: pd.DataFrame,
@@ -560,29 +632,50 @@ comment_ids: [List of relevant comment IDs in brackets]
         Returns:
             Dictionary with results and metrics
         """
-        print(f"Sampling comments from {community_a} and {community_b}...")
         comments = self.sample_comments(
             df, community_a, community_b,
             n_samples=n_samples,
             max_length=max_length,
             balance_violations=False  
         )
+        run_log = {
+            "task": {
+                "name": "task2_norm_interpretation",
+                "community_a": community_a,
+                "community_b": community_b,
+                "n_samples": n_samples,
+                "max_length": max_length,
+                "joint": joint
+            },
+            "warnings": [],
+            "sampling": {},
+            "prompt": None,
+            "llm_response": {},
+            "parsed_output": None,
+            "metrics": None,
+        }
+        run_log["sampling"]["communities"] = [community_a, community_b]
+        run_log["sampling"]["total_sampled"] = len(comments)
+        run_log["sampling"]["comments"] = [
+            {"id": cid, "community": comm, "status": status}
+            for cid, _, comm, status in comments
+        ]
         
         violation_comments = [c for c in comments if c[3] == "violation"]
+        run_log["sampling"]["violations"] = len(violation_comments)
         
         if len(violation_comments) == 0:
-            print("Warning: No violation comments found!")
+            run_log["warnings"].append("No violation comments found")
+            with open("task2_run_log.json", "w") as f:
+                json.dump(run_log, f, indent=2, ensure_ascii=False)
             return {
                 'definitions': {},
                 'metrics': {},
                 'raw_response': '',
                 'input_comments': []
             }
-        
-        print(f"Found {len(violation_comments)} violation comments")
-        
-        print("Creating prompt...")
         prompt = self.create_task2_prompt(violation_comments, joint=joint)
+        run_log["prompt"] = prompt
         
         if verbose:
             print(f"\n{'='*60}")
@@ -590,8 +683,8 @@ comment_ids: [List of relevant comment IDs in brackets]
             print(prompt[:500])
             print(f"{'='*60}\n")
         
-        print("Calling LLM...")
         response = self.call_llm(prompt)
+        run_log["llm_response"]["raw_response"] = response
         
         if verbose:
             print(f"\n{'='*60}")
@@ -599,10 +692,11 @@ comment_ids: [List of relevant comment IDs in brackets]
             print(response)
             print(f"{'='*60}\n")
         
-        print("Parsing response...")
         parsed = self.parse_task2_response(response)
+        run_log["parsed_output"] = parsed
+        if not parsed:
+            run_log["warnings"].append("Parsing returned empty results")
         
-        print("Calculating metrics...")
         metrics = self.calculate_metrics(parsed, violation_comments, task=2)
         
         if joint and parsed['comm_a_desc'] and parsed['comm_b_desc']:
@@ -610,7 +704,14 @@ comment_ids: [List of relevant comment IDs in brackets]
                 parsed['comm_a_desc'],
                 parsed['comm_b_desc']
             )
-        
+        run_log["metrics"] = metrics
+        run_log["input_comments"] = [
+            {"comment_id": cid, "text": text, "community": comm, "status": status}
+            for cid, text, comm, status in violation_comments
+        ]
+
+        with open("task2_run_log.json", "w") as f:
+            json.dump(run_log, f, indent=2, ensure_ascii=False)
         return {
             'definitions': parsed,
             'metrics': metrics,
@@ -618,53 +719,6 @@ comment_ids: [List of relevant comment IDs in brackets]
             'input_comments': violation_comments,
             'prompt': prompt
         }
-    def run_multiple_simulations(
-        self,
-        df: pd.DataFrame,
-        task: int,
-        n_simulations: int = 10,
-        **kwargs
-    ) -> List[Dict]:
-        """
-        Run multiple simulations with different community pairs.
-        
-        Args:
-            df: DataFrame with comments
-            task: Task number (1 or 2)
-            n_simulations: Number of simulations to run
-            **kwargs: Additional arguments for run_task1 or run_task2
-            
-        Returns:
-            List of results from each simulation
-        """
-        communities = df['community_id'].unique()
-        
-        if len(communities) < 2:
-            raise ValueError(f"Need at least 2 communities, found {len(communities)}")
-        
-        results = []
-        
-        for i in range(n_simulations):
-            print(f"\n=== Simulation {i+1}/{n_simulations} ===")
-            
-            comm_a, comm_b = random.sample(list(communities), 2)
-            
-            try:
-                if task == 1:
-                    result = self.run_task1(df, comm_a, comm_b, **kwargs)
-                elif task == 2:
-                    result = self.run_task2(df, comm_a, comm_b, **kwargs)
-                else:
-                    raise ValueError(f"Invalid task number: {task}")
-                
-                result['community_a'] = comm_a
-                result['community_b'] = comm_b
-                results.append(result)
-            except Exception as e:
-                print(f"Error in simulation {i+1}: {e}")
-                continue
-        
-        return results
 
 if __name__ == "__main__":
     analyzer = CommunityNormAnalyzer()
@@ -678,23 +732,67 @@ if __name__ == "__main__":
     
     if len(top_communities) >= 2:
         community_a, community_b = top_communities[0], top_communities[1]
+        ########
+        # print("\n" + "="*50)
+        # print("Running Task 1: Identifying Shared Norms")
+        # print("="*50)
         
+        # task1_results = analyzer.run_task1(
+        #     df,
+        #     community_a=community_a,
+        #     community_b=community_b,
+        #     n_samples=50,
+        #     num_norms=5,
+        #     max_length=280
+        # )
+        # output = {
+        #     "community_a": community_a,
+        #     "community_b": community_b,
+        #     "norms": task1_results["norms"],
+        #     "prompt": task1_results["prompt"],
+        #     "raw_response": task1_results["raw_response"],
+        #     "input_comments": [
+        #         {
+        #             "comment_id": cid,
+        #             "text": text,
+        #             "community": comm,
+        #             "status": status
+        #         }
+        #         for cid, text, comm, status in task1_results["input_comments"]
+        #     ]
+        # }
+        # with open("task1_results.json", "w") as f:
+        #     json.dump(output, f, indent=2)
+
+
+        ########
         print("\n" + "="*50)
-        print("Running Task 1: Identifying Shared Norms")
+        print("Running Task 2: Identifying Shared Norms")
         print("="*50)
         
-        task1_results = analyzer.run_task1(
+        task2_results = analyzer.run_task2(
             df,
             community_a=community_a,
             community_b=community_b,
             n_samples=50,
-            num_norms=5,
             max_length=280
         )
-        
-        print("\nTask 1 Results:")
-        print(json.dumps(task1_results['norms'], indent=2))
-        print("\nMetrics:")
-        print(json.dumps(task1_results['metrics'], indent=2))
+        output = {
+            "community_a": community_a,
+            "community_b": community_b,
+            "prompt": task2_results["prompt"],
+            "raw_response": task2_results["raw_response"],
+            "input_comments": [
+                {
+                    "comment_id": cid,
+                    "text": text,
+                    "community": comm,
+                    "status": status
+                }
+                for cid, text, comm, status in task2_results["input_comments"]
+            ]
+        }
+        with open("task2_results.json", "w") as f:
+            json.dump(output, f, indent=2)
     else:
         print("Not enough communities in dataset")
