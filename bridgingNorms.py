@@ -5,9 +5,12 @@ import pandas as pd
 import numpy as np
 from typing import List, Dict, Tuple, Optional
 import json
+import re
 from collections import defaultdict
 from sentence_transformers import SentenceTransformer
 import random
+import sys
+from datetime import datetime
 
 # Load API configuration
 load_dotenv()
@@ -62,6 +65,7 @@ class CommunityNormAnalyzer:
         })
         
         df['violation'] = df['violation'].astype(bool)
+        df['comment_id'] = range(1, len(df) + 1)
         
         return df
     
@@ -70,9 +74,9 @@ class CommunityNormAnalyzer:
         df: pd.DataFrame,
         community_a: str,
         community_b: str,
-        n_samples: int = 100,
+        n_samples: int,
         max_length: Optional[int] = None,
-        balance_violations: bool = True
+        balance_violations: bool = False
     ) -> List[Tuple[str, str, str, str]]:
         """
         Sample comments from two communities.
@@ -108,19 +112,17 @@ class CommunityNormAnalyzer:
                 violating_df = community_df[community_df['violation'] == True]
                 non_violating_df = community_df[community_df['violation'] == False]
                 
-                n_violating = min(n_per_class, len(violating_df))
-                n_non_violating = min(n_per_class, len(non_violating_df))
-                
-                if n_violating == 0:
-                    print(f"Warning: No violating comments for {community_id}, sampling all non-violating")
-                    sampled = non_violating_df.sample(min(n_samples, len(non_violating_df)), random_state=42)
-                elif n_non_violating == 0:
-                    print(f"Warning: No non-violating comments for {community_id}, sampling all violating")
-                    sampled = violating_df.sample(min(n_samples, len(violating_df)), random_state=42)
-                else:
-                    violating = violating_df.sample(n_violating, random_state=42)
-                    non_violating = non_violating_df.sample(n_non_violating, random_state=42)
-                    sampled = pd.concat([violating, non_violating])
+                # stop if not enough, or redo or lower?
+                if len(violating_df) < n_per_class or len(non_violating_df) < n_per_class:
+                    raise ValueError(
+                        f"Community '{community_id}' does not have enough samples.\n"
+                        f"Required per class: {n_per_class}\n"
+                        f"Violations available: {len(violating_df)}\n"
+                        f"Non-violations available: {len(non_violating_df)}"
+                    )
+                violating = violating_df.sample(n_per_class, random_state=42)
+                non_violating = non_violating_df.sample(n_per_class, random_state=42)
+                sampled = pd.concat([violating, non_violating])
             else:
                 sampled = community_df.sample(
                     min(n_samples, len(community_df)),
@@ -128,10 +130,10 @@ class CommunityNormAnalyzer:
                 )
             
             for idx, row in sampled.iterrows():
-                comment_id = f"{community_id[:1].upper()}{idx}"
+                # comment_id = f"{community_id[:1].upper()}{idx}"
                 violation_status = "violation" if row['violation'] else "non_violation"
                 samples.append((
-                    comment_id,
+                    row["comment_id"],
                     row['comment_text'],
                     community_id,
                     violation_status
@@ -240,7 +242,7 @@ output = [
                 for cid, text, comm, _ in violation_comments
             ])
             
-            prompt = f"""Below there is a list of {len(violation_comments)} tuples with format (comment id, comment text, community id). These tuples represent comments from an online discussion platform from two different community ids.
+            prompt = f"""Below there is a list of {len(comment_list)} tuples with format (comment id, comment text, community id). These tuples represent comments from an online discussion platform from two different community ids.
 
 Here are the comments:
 {comment_list}
@@ -373,31 +375,26 @@ comment_ids: [List of relevant comment IDs in brackets]
         
         return norms
 
-    def _extract_comment_ids(self, text: str) -> List[str]:
-        """Extract comment IDs from text - improved version"""
-        import re
-        
-        patterns = [
-            r'\[([A-Z]\d+)\]',
-            r'\b([A-Z]\d+)\b',  
-            r'([A-Z]\d+)',       
-        ]
-        
-        all_matches = []
-        for pattern in patterns:
-            matches = re.findall(pattern, text)
-            all_matches.extend(matches)
-            if matches: 
-                break
-        
+    def _extract_comment_ids(self, text: str) -> List[int]:
+        """Extract numeric comment IDs"""
+
+        matches = re.findall(r'\d+', text)
+        # print("WHERE ARE WE")
+        # print("WHERE ARE WE")
+        # print("WHERE ARE WE")
+        # print("WHERE ARE WE")
+        # print(text)
+        print("TEXT:", text)
         seen = set()
-        unique_matches = []
-        for match in all_matches:
-            if match not in seen:
-                seen.add(match)
-                unique_matches.append(match)
-        
-        return unique_matches
+        unique = []
+
+        for m in matches:
+            num = int(m)
+            if num not in seen:
+                seen.add(num)
+                unique.append(num)
+
+        return unique
 
     
     def parse_task2_response(self, response: str) -> Dict:
@@ -432,7 +429,7 @@ comment_ids: [List of relevant comment IDs in brackets]
         self,
         parsed_response: Dict,
         input_comments: List[Tuple[str, str, str, str]],
-        task: int = 1
+        task: int
     ) -> Dict[str, float]:
         """
         Calculate evaluation metrics.
@@ -446,6 +443,7 @@ comment_ids: [List of relevant comment IDs in brackets]
             Dictionary of metric values
         """
         metrics = {}
+        metrics["task"] = task
         
         if task == 1:
             all_cited = []
@@ -473,6 +471,7 @@ comment_ids: [List of relevant comment IDs in brackets]
         metrics['violating_fraction'] = (
             cited_violations / len(all_cited) if len(all_cited) > 0 else 0
         )
+        metrics['time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
         return metrics
     
@@ -496,156 +495,27 @@ comment_ids: [List of relevant comment IDs in brackets]
         similarity = dot_product / (norm1 * norm2)
         
         return float(similarity)
-    
+
     def run_task(
         self,
         df: pd.DataFrame,
         community_a: str,
         community_b: str,
         task_name: str,
-        task_desc: str,
-        n_samples: int = 100,
-        num_norms: int = 5,
-        max_length: Optional[int] = None,
-        verbose: bool = True
-    ) -> Dict:
-        
-        if task_name == "task_1":
-            None
-        
-        if task_name == "task_2":
-            None
-        
-
-        
-
-    def run_task1(
-        self,
-        df: pd.DataFrame,
-        community_a: str,
-        community_b: str,
-        n_samples: int = 100,
-        num_norms: int = 5,
-        max_length: Optional[int] = None,
-        verbose: bool = True
-    ) -> Dict:
-        """
-        Run complete Task 1 pipeline.
-        
-        Returns:
-            Dictionary with results and metrics
-        """
-        run_log = {
-            "warnings": [],
-            "communities": {},
-            "task": {
-                "name": "task1_shared_norms",
-                "community_a": community_a,
-                "community_b": community_b,
-                "n_samples": 50,
-                "num_norms": 5,
-                "max_length": 280
-            },
-            "sampling": {},
-            "prompt": None,
-            "llm_call": {},
-        }
-        run_log["sampling"]["message"] = (
-            f"Sampling comments from {community_a} and {community_b}"
-        )
-        comments = self.sample_comments(
-            df, community_a, community_b,
-            n_samples=n_samples,
-            max_length=max_length
-        )
-        run_log["sampling"]["total_sampled"] = len(comments)
-        run_log["sampling"]["comments"] = [
-            {
-                "id": cid,
-                "community": comm,
-                "status": status
-            }
-            for cid, _, comm, status in comments
-        ]
-        if len(comments) == 0:
-            run_log["warnings"].append("No comments sampled")
-            return {
-                'norms': {},
-                'metrics': {},
-                'raw_response': '',
-                'input_comments': []
-            }
-        
-        # print(f"Sampled {len(comments)} comments total")
-        
-        prompt = self.create_task1_prompt(comments, num_norms=num_norms)
-        run_log["prompt"] = prompt
-        
-        if verbose:
-            print(f"\n{'='*60}")
-            print("PROMPT PREVIEW:")
-            print(prompt)
-            print(f"{'='*60}\n")
-        
-        response = self.call_llm(prompt)
-        run_log["llm_call"]["raw_response"] = response
-        
-        if verbose:
-            print(f"\n{'='*60}")
-            print("RAW LLM RESPONSE:")
-            print(response)
-            print(f"{'='*60}\n")
-        
-        parsed = self.parse_task1_response(response)
-        run_log["llm_call"]["parsed_norms"] = parsed
-        if not parsed:
-            run_log["warnings"].append("Parsing returned empty results")
-        else:
-            run_log["llm_call"]["num_norms_parsed"] = len(parsed)
-        
-        metrics = self.calculate_metrics(parsed, comments, task=1)
-        run_log["metrics"] = metrics
-
-        with open("task1_run_log.json", "w") as f:
-            json.dump(run_log, f, indent=2)
-        return {
-            'norms': parsed,
-            'metrics': metrics,
-            'raw_response': response,
-            'input_comments': comments,
-            'prompt': prompt 
-        }
-    
-    def run_task2(
-        self,
-        df: pd.DataFrame,
-        community_a: str,
-        community_b: str,
-        n_samples: int = 100,
+        n_samples: int,
+        num_norms: int,
         max_length: Optional[int] = None,
         joint: bool = True,
         verbose: bool = True
     ) -> Dict:
-        """
-        Run complete Task 2 pipeline.
-        
-        Returns:
-            Dictionary with results and metrics
-        """
-        comments = self.sample_comments(
-            df, community_a, community_b,
-            n_samples=n_samples,
-            max_length=max_length,
-            balance_violations=False  
-        )
+        reason = input("Why are you running this test? ")
         run_log = {
             "task": {
-                "name": "task2_norm_interpretation",
+                "name": task_name,
                 "community_a": community_a,
                 "community_b": community_b,
                 "n_samples": n_samples,
-                "max_length": max_length,
-                "joint": joint
+                "max_length": max_length
             },
             "warnings": [],
             "sampling": {},
@@ -653,85 +523,118 @@ comment_ids: [List of relevant comment IDs in brackets]
             "llm_response": {},
             "parsed_output": None,
             "metrics": None,
+            "reason": reason
         }
-        run_log["sampling"]["communities"] = [community_a, community_b]
+
+        if task_name == "task1":
+            comments = self.sample_comments(
+                df, community_a, community_b,
+                n_samples=n_samples,
+                max_length=max_length
+            )
+
+        elif task_name == "task2":
+            comments = self.sample_comments(
+                df, community_a, community_b,
+                n_samples=n_samples,
+                max_length=max_length,
+                balance_violations=False
+            )
+
+        else:
+            raise ValueError("task_name must be 'task1' or 'task2'")
+
         run_log["sampling"]["total_sampled"] = len(comments)
-        run_log["sampling"]["comments"] = [
-            {"id": cid, "community": comm, "status": status}
-            for cid, _, comm, status in comments
-        ]
-        
-        violation_comments = [c for c in comments if c[3] == "violation"]
-        run_log["sampling"]["violations"] = len(violation_comments)
-        
-        if len(violation_comments) == 0:
-            run_log["warnings"].append("No violation comments found")
-            with open("task2_run_log.json", "w") as f:
-                json.dump(run_log, f, indent=2, ensure_ascii=False)
-            return {
-                'definitions': {},
-                'metrics': {},
-                'raw_response': '',
-                'input_comments': []
-            }
-        prompt = self.create_task2_prompt(violation_comments, joint=joint)
+
+        if len(comments) == 0:
+            run_log["warnings"].append("No comments sampled")
+            return {}
+
+        if task_name == "task1":
+            prompt = self.create_task1_prompt(comments, num_norms=num_norms)
+
+        else:  # task2 (change if adding tasks)
+            prompt = self.create_task2_prompt(comments, joint=joint)
+
         run_log["prompt"] = prompt
-        
+
         if verbose:
-            print(f"\n{'='*60}")
-            print("PROMPT PREVIEW (first 500 chars):")
+            print("\n" + "="*60)
+            print("PROMPT PREVIEW:")
             print(prompt[:500])
-            print(f"{'='*60}\n")
-        
+            print("="*60 + "\n")
+
+
         response = self.call_llm(prompt)
         run_log["llm_response"]["raw_response"] = response
-        
+
         if verbose:
-            print(f"\n{'='*60}")
+            print("\n" + "="*60)
             print("RAW LLM RESPONSE:")
             print(response)
-            print(f"{'='*60}\n")
-        
-        parsed = self.parse_task2_response(response)
+            print("="*60 + "\n")
+
+        if task_name == "task1":
+            parsed = self.parse_task1_response(response)
+
+        else:
+            parsed = self.parse_task2_response(response)
+
         run_log["parsed_output"] = parsed
+
         if not parsed:
             run_log["warnings"].append("Parsing returned empty results")
-        
-        metrics = self.calculate_metrics(parsed, violation_comments, task=2)
-        
-        if joint and parsed['comm_a_desc'] and parsed['comm_b_desc']:
-            metrics['definition_similarity'] = self.calculate_similarity(
-                parsed['comm_a_desc'],
-                parsed['comm_b_desc']
-            )
-        run_log["metrics"] = metrics
-        run_log["input_comments"] = [
-            {"comment_id": cid, "text": text, "community": comm, "status": status}
-            for cid, text, comm, status in violation_comments
-        ]
 
-        with open("task2_run_log.json", "w") as f:
+        task_num = 1 if task_name == "task1" else 2
+        metrics = self.calculate_metrics(parsed, comments, task=task_num)
+
+        metrics["inputs"] = {
+            "task_name": task_name,
+            "community_a": community_a,
+            "community_b": community_b,
+            "n_samples": n_samples,
+            "num_norms": num_norms,
+            "max_length": max_length,
+            "joint": joint,
+            "num_input_comments": len(comments),
+        }
+        if task_name == "task2":
+            metrics["inputs"]["definition_similarity"] = self.calculate_similarity(
+            parsed["comm_a_desc"], parsed["comm_b_desc"]
+            )
+
+
+        run_log["metrics"] = metrics
+
+        with open(f"{task_name}_run_log.json", "w") as f:
             json.dump(run_log, f, indent=2, ensure_ascii=False)
+
         return {
-            'definitions': parsed,
-            'metrics': metrics,
-            'raw_response': response,
-            'input_comments': violation_comments,
-            'prompt': prompt
+            "norms": parsed,
+            "metrics": metrics,
+            "raw_response": response,
+            "input_comments": comments,
+            "prompt": prompt
         }
 
 if __name__ == "__main__":
     analyzer = CommunityNormAnalyzer()
-    
+    if len(sys.argv) < 5:
+        print("Error: not enough inputs")
     df = analyzer.load_data("data_training_selected_clusters_comments_and_rules.csv")
     
     print("Available communities:")
     print(df['community_id'].value_counts())
 
     top_communities = df['community_id'].value_counts().head(2).index.tolist()
-    
+    if len(top_communities) == 1:
+        community_a, community_b = top_communities[0], top_communities[0]
     if len(top_communities) >= 2:
         community_a, community_b = top_communities[0], top_communities[1]
+    if len(top_communities) >= 1:
+        task_name = sys.argv[1]
+        n_samples = int(sys.argv[2])
+        num_norms = int(sys.argv[3])
         ########
         # print("\n" + "="*50)
         # print("Running Task 1: Identifying Shared Norms")
@@ -766,15 +669,18 @@ if __name__ == "__main__":
 
 
         ########
+        # change input to argc
         print("\n" + "="*50)
         print("Running Task 2: Identifying Shared Norms")
         print("="*50)
         
-        task2_results = analyzer.run_task2(
+        task2_results = analyzer.run_task(
             df,
             community_a=community_a,
             community_b=community_b,
-            n_samples=50,
+            task_name=task_name,
+            n_samples=n_samples,
+            num_norms=num_norms,
             max_length=280
         )
         output = {
