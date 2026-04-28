@@ -21,7 +21,7 @@ if not OPENROUTER_API_KEY:
         raise RuntimeError("OPENROUTER_API_KEY not provided")
 
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
-MODEL = "openai/gpt-4o-mini"
+MODEL = "nvidia/nemotron-3-super-120b-a12b:free"
 
 
 class NotEnoughSamplesError(Exception):
@@ -129,11 +129,6 @@ class CommunityNormAnalyzer:
             if len(community_df) == 0:
                 print(f"Warning: No comments found for community '{community_id}'")
                 continue
-            
-            # if max_length:
-            #     community_df = community_df[
-            #         community_df['comment_text'].str.len() <= max_length
-            #     ]
             
             if balance_violations:
                 n_per_class = n_samples // 2
@@ -265,25 +260,25 @@ output = [
             Formatted prompt string
         """
         if joint:
-            violation_comments = [c for c in comments if c[3] == "violation"]
-            community_a = comments[0][2]  # first community seen
+            community_a = comments[0][2]
 
             def prefix(cid, comm):
                 return f"A{cid}" if comm == community_a else f"B{cid}"
 
             comment_list = "\n".join([
-                f"({prefix(cid, comm)}, \"{text}\", {comm})"
-                for cid, text, comm, _ in violation_comments
+                f"({prefix(cid, comm)}, \"{text}\", {comm}, {status})"
+                for cid, text, comm, status in comments
             ])
             
-            prompt = f"""Below there is a list of {len(comment_list)} tuples with format (comment id, comment text, community id). These tuples represent comments from an online discussion platform from two different community ids.
-Community A norms: {norm_a}
-Community B norms: {norm_b}
+            prompt = f"""Below there is a list of {len(comments)} tuples with format (comment id, comment text, community id, violation status). These tuples represent comments from an online discussion platform from two different community ids.
+
+            {norm_a + norm_b}
 
 Here are the comments:
 {comment_list}
 
-All these comments have been moderated and removed because they were considered disrespectful. How does each community define disrespect? Focus on what makes each community's definition different from the other:
+These comments include both removed (violations) and kept (non-violations) comments.
+How does each community define disrespect? Focus on what makes each community's definition different from the other:
 
 Please output the information a dictionary format with the following key-value pairs:
 comm_a_desc: [Definition of the norm as particularly understood in Community A]
@@ -294,18 +289,17 @@ comm_b_ids: [list of all comments ids from Community 1 that represent this speec
 Make sure to cite only comments from community A–those ids that begin with the letter A in the list of comments for community A. And similarly for B–those ids that begin with the letter B in the list of comments for community B.
 """
         else:
-            community_id = comments[0][2]
-            violation_comments = [
-                c for c in comments 
-                if c[3] == "violation" and c[2] == community_id
-            ]
-            
+            community_a = comments[0][2]
+
+            def prefix(cid, comm):
+                return f"A{cid}" if comm == community_a else f"B{cid}"
+
             comment_list = "\n".join([
-                f"({cid}, \"{text}\")"
-                for cid, text, _, _ in violation_comments
+                f"({prefix(cid, comm)}, \"{text}\", {comm}, {status})"
+                for cid, text, comm, status in comments
             ])
             
-            prompt = f"""Below there is a list of {len(violation_comments)} comments that have been moderated and removed because they were considered disrespectful.
+            prompt = f"""Below there is a list of {len(comments)} tuples with format (comment id, comment text, community id, violation status). These tuples represent comments from an online discussion platform from two different community ids.
 
 Here are the comments:
 {comment_list}
@@ -434,11 +428,17 @@ comment_ids: [List of relevant comment IDs in brackets]
             'comm_b_desc': '',
             'comm_b_ids': []
         }
-
         cleaned = re.sub(r'```(?:python|json)?\s*', '', response)
         cleaned = re.sub(r'```', '', cleaned).strip()
 
+        # Fix double-quoted IDs: ""A123"" -> "A123"
+        cleaned = re.sub(r'"+([AB]\d+)"+', r'"\1"', cleaned)
+
+        # Fix unquoted IDs: [A123, B456] -> ["A123", "B456"]
         cleaned = re.sub(r'\b([AB]\d+)\b', r'"\1"', cleaned)
+
+        # Remove any resulting doubled quotes from applying both fixes
+        cleaned = re.sub(r'"+([AB]\d+)"+', r'"\1"', cleaned)
 
         try:
             match = re.search(r'\{.*\}', cleaned, re.DOTALL)
@@ -501,14 +501,17 @@ comment_ids: [List of relevant comment IDs in brackets]
         else:
             metrics['redundancy'] = 0
         
-        cited_violations = 0
-        for comment_id, _, _, status in input_comments:
-            if comment_id in all_cited and status == "violation":
-                cited_violations += 1
-        
-        metrics['violating_fraction'] = (
-            cited_violations / len(all_cited) if len(all_cited) > 0 else 0
-        )
+        violations = [c for c in samples if c[3] == "violation"]
+        non_violations = [c for c in samples if c[3] == "non_violation"]
+
+        mixed = []
+        for v, nv in zip(violations, non_violations):
+            mixed.extend([v, nv])
+
+        mixed.extend(violations[len(non_violations):])
+        mixed.extend(non_violations[len(violations):])
+
+        samples = mixed
         metrics['time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
         return metrics
@@ -687,9 +690,9 @@ if __name__ == "__main__":
                 df,
                 community_a=community_a,
                 community_b=community_b,
-                task_name=task_name,
+                task_name="task2",
                 n_samples=n_samples,
-                num_norms=num_norms
+                num_norms=2
                 # max_length=280
             )
             break
