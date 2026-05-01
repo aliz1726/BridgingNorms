@@ -21,7 +21,7 @@ if not OPENROUTER_API_KEY:
         raise RuntimeError("OPENROUTER_API_KEY not provided")
 
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
-MODEL = "nvidia/nemotron-3-super-120b-a12b:free"
+MODEL = "openai/gpt-4o-mini"
 
 
 class NotEnoughSamplesError(Exception):
@@ -232,13 +232,6 @@ output = [
 }
 ]
 """
-# try to fix common issues, otherwise rerun
-
-# response = llm output
-# response = json.loads(response)
-# response["Community 0 Citations"] –>> 
-
-# same output, but put norms into a json
         return prompt
     
     def create_task2_prompt(
@@ -278,7 +271,8 @@ Here are the comments:
 {comment_list}
 
 These comments include both removed (violations) and kept (non-violations) comments.
-How does each community define disrespect? Focus on what makes each community's definition different from the other:
+How does each community define disrespect? Make sure to cite a good mix of both violation and non-violation comments in your answer.
+Focus on what makes each community's definition different from the other:
 
 Please output the information a dictionary format with the following key-value pairs:
 comm_a_desc: [Definition of the norm as particularly understood in Community A]
@@ -428,24 +422,23 @@ comment_ids: [List of relevant comment IDs in brackets]
             'comm_b_desc': '',
             'comm_b_ids': []
         }
+
         cleaned = re.sub(r'```(?:python|json)?\s*', '', response)
         cleaned = re.sub(r'```', '', cleaned).strip()
-
-        # Fix double-quoted IDs: ""A123"" -> "A123"
         cleaned = re.sub(r'"+([AB]\d+)"+', r'"\1"', cleaned)
-
-        # Fix unquoted IDs: [A123, B456] -> ["A123", "B456"]
         cleaned = re.sub(r'\b([AB]\d+)\b', r'"\1"', cleaned)
-
-        # Remove any resulting doubled quotes from applying both fixes
         cleaned = re.sub(r'"+([AB]\d+)"+', r'"\1"', cleaned)
 
         try:
             match = re.search(r'\{.*\}', cleaned, re.DOTALL)
             if match:
                 data = json.loads(match.group())
-                result['comm_a_desc'] = data.get('comm_a_desc', '')
-                result['comm_b_desc'] = data.get('comm_b_desc', '')
+
+                desc_a = data.get('comm_a_desc', '')
+                desc_b = data.get('comm_b_desc', '')
+                result['comm_a_desc'] = desc_a[0] if isinstance(desc_a, list) else desc_a
+                result['comm_b_desc'] = desc_b[0] if isinstance(desc_b, list) else desc_b
+
                 result['comm_a_ids'] = [
                     int(re.sub(r'[A-Za-z]', '', id_str))
                     for id_str in data.get('comm_a_ids', [])
@@ -456,7 +449,13 @@ comment_ids: [List of relevant comment IDs in brackets]
                     for id_str in data.get('comm_b_ids', [])
                     if re.search(r'\d+', str(id_str))
                 ]
+
+                min_len = min(len(result['comm_a_ids']), len(result['comm_b_ids']))
+                result['comm_a_ids'] = result['comm_a_ids'][:min_len]
+                result['comm_b_ids'] = result['comm_b_ids'][:min_len]
+
                 return result
+
         except (json.JSONDecodeError, TypeError) as e:
             print("JSON parse failed:", e)
             print("Cleaned text was:", cleaned)
@@ -501,17 +500,16 @@ comment_ids: [List of relevant comment IDs in brackets]
         else:
             metrics['redundancy'] = 0
         
-        violations = [c for c in samples if c[3] == "violation"]
-        non_violations = [c for c in samples if c[3] == "non_violation"]
 
-        mixed = []
-        for v, nv in zip(violations, non_violations):
-            mixed.extend([v, nv])
+        input_id_to_status = {c[0]: c[3] for c in input_comments}
+        valid_cited = [cid for cid in all_cited if cid in input_id_to_status]
 
-        mixed.extend(violations[len(non_violations):])
-        mixed.extend(non_violations[len(violations):])
-
-        samples = mixed
+        if valid_cited:
+            n_violations = sum(1 for cid in valid_cited if input_id_to_status[cid] == "violation")
+            metrics['violating_fraction'] = n_violations / len(valid_cited)
+        else:
+            metrics['violating_fraction'] = float('nan')
+        
         metrics['time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
         return metrics

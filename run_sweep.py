@@ -37,7 +37,8 @@ CommunityNormAnalyzer = _mod.CommunityNormAnalyzer
 NotEnoughSamplesError = _mod.NotEnoughSamplesError
 
 # parameters: eventually should be on input or automatic, for now just set here for ease
-DEFAULT_SIZES   = [10, 20, 30, 40, 50, 60, 70]
+DEFAULT_SIZES   = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150]
+# DEFAULT_SIZES   = [10, 20]
 DEFAULT_TRIALS  = 2
 DATA_FILE       = "data_training_selected_clusters_comments_and_rules.csv"
 BASE_METRICS    = ["coverage", "redundancy", "violating_fraction", "unique_comments"]
@@ -185,11 +186,10 @@ def plot_metrics(records, task_name, out_dir: Path):
 # Add this function after plot_metrics()
 
 def plot_community_metrics(records, task_name, out_dir: Path):
-    """One figure per community pair: metrics across sample sizes."""
+    """All community pairs on one figure: one subplot per metric, one line per pair."""
     if not records:
         return
 
-    # Group records by community pair (order-independent)
     from collections import defaultdict
     pairs = defaultdict(list)
     for r in records:
@@ -202,23 +202,27 @@ def plot_community_metrics(records, task_name, out_dir: Path):
     metrics_to_plot = [m for m in metrics_to_plot
                        if any(m in r and r[m] is not None for r in records)]
 
+    all_sizes = sorted({r["n_samples"] for r in records})
     n_metrics = len(metrics_to_plot)
     cols = min(3, n_metrics)
     rows = (n_metrics + cols - 1) // cols
     palette = plt.cm.tab10.colors
 
-    for (comm_a, comm_b), pair_records in pairs.items():
-        sizes = sorted({r["n_samples"] for r in pair_records})
+    fig, axes = plt.subplots(rows, cols, figsize=(6 * cols, 4.5 * rows))
+    axes_flat = np.array(axes).flatten() if n_metrics > 1 else [axes]
 
-        fig, axes = plt.subplots(rows, cols, figsize=(6 * cols, 4.5 * rows))
-        axes_flat = np.array(axes).flatten() if n_metrics > 1 else [axes]
+    pair_keys = list(pairs.keys())
 
-        for idx, metric in enumerate(metrics_to_plot):
-            ax = axes_flat[idx]
-            color = palette[idx % len(palette)]
+    for idx, metric in enumerate(metrics_to_plot):
+        ax = axes_flat[idx]
+
+        for p_idx, pair_key in enumerate(pair_keys):
+            pair_records = pairs[pair_key]
+            color = palette[p_idx % len(palette)]
+            label = f"{pair_key[0]} vs {pair_key[1]}"
             xs, ys = [], []
 
-            for size in sizes:
+            for size in all_sizes:
                 vals = [r[metric] for r in pair_records
                         if r["n_samples"] == size and r.get(metric) is not None]
                 for v in vals:
@@ -226,28 +230,29 @@ def plot_community_metrics(records, task_name, out_dir: Path):
                     ys.append(float(v))
 
             if xs:
-                ax.scatter(xs, ys, color=color, s=60, zorder=3, alpha=0.8)
-                ax.plot(xs, ys, color=color, linewidth=1.5, alpha=0.5, zorder=2)
+                ax.scatter(xs, ys, color=color, s=50, zorder=3, alpha=0.75)
+                ax.plot(xs, ys, color=color, linewidth=1.5, alpha=0.6,
+                        zorder=2, label=label)
 
-            pretty = metric.replace("_", " ").title()
-            ax.set_title(pretty, fontsize=13, fontweight="bold", pad=8)
-            ax.set_xlabel("n_samples", fontsize=11)
-            ax.set_ylabel(pretty, fontsize=11)
-            ax.xaxis.set_major_locator(ticker.FixedLocator(sizes if sizes else [0]))
-            ax.grid(axis="y", linestyle="--", alpha=0.35)
+        pretty = metric.replace("_", " ").title()
+        ax.set_title(pretty, fontsize=13, fontweight="bold", pad=8)
+        ax.set_xlabel("n_samples", fontsize=11)
+        ax.set_ylabel(pretty, fontsize=11)
+        ax.xaxis.set_major_locator(ticker.FixedLocator(all_sizes))
+        ax.grid(axis="y", linestyle="--", alpha=0.35)
+        # ax.legend(fontsize=7, loc="best", framealpha=0.7)
 
-        for ax in axes_flat[n_metrics:]:
-            ax.set_visible(False)
+    for ax in axes_flat[n_metrics:]:
+        ax.set_visible(False)
 
-        safe_name = f"{comm_a}_vs_{comm_b}".replace("/", "-").replace(" ", "_")
-        fig.suptitle(f"{comm_a}  vs  {comm_b}  —  {task_name}",
-                     fontsize=13, fontweight="bold", y=1.02)
-        fig.tight_layout()
+    fig.suptitle(f"Community Pairs — {task_name}",
+                 fontsize=15, fontweight="bold", y=1.02)
+    fig.tight_layout()
 
-        plot_path = out_dir / f"{safe_name}_metrics.png"
-        fig.savefig(plot_path, dpi=150, bbox_inches="tight")
-        print(f"  Community plot → {plot_path}")
-        plt.close(fig)
+    plot_path = out_dir / f"{task_name}_community_metrics.png"
+    fig.savefig(plot_path, dpi=150, bbox_inches="tight")
+    print(f"  Community plot → {plot_path}")
+    plt.close(fig)
 
 def main():
     args      = parse_args()
