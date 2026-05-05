@@ -21,7 +21,7 @@ if not OPENROUTER_API_KEY:
         raise RuntimeError("OPENROUTER_API_KEY not provided")
 
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
-MODEL = "openai/gpt-4o-mini"
+MODEL = "openai/gpt-oss-120b:free"
 
 
 class NotEnoughSamplesError(Exception):
@@ -265,13 +265,11 @@ output = [
             
             prompt = f"""Below there is a list of {len(comments)} tuples with format (comment id, comment text, community id, violation status). These tuples represent comments from an online discussion platform from two different community ids.
 
-            {norm_a + norm_b}
-
+Here are the norms for community_a: {norm_a}, and the norms for community_b: {norm_b}.
 Here are the comments:
-{comment_list}
-
+{comment_list}.
 These comments include both removed (violations) and kept (non-violations) comments.
-How does each community define disrespect? Make sure to cite a good mix of both violation and non-violation comments in your answer.
+Using these comments, cite an even mix of both violation and non-violation comments, showing how each community defines their norms.
 Focus on what makes each community's definition different from the other:
 
 Please output the information a dictionary format with the following key-value pairs:
@@ -281,6 +279,7 @@ comm_b_desc: [Definition of the norm as particularly understood in Community B]
 comm_b_ids: [list of all comments ids from Community 1 that represent this speech norm in brackets (ie. [B42, B630]), without returning the comment text]
 
 Make sure to cite only comments from community A–those ids that begin with the letter A in the list of comments for community A. And similarly for B–those ids that begin with the letter B in the list of comments for community B.
+Important: do not reference any comment IDs inside comm_a_desc or comm_b_desc. IDs belong only in comm_a_ids and comm_b_ids.
 """
         else:
             community_a = comments[0][2]
@@ -423,11 +422,18 @@ comment_ids: [List of relevant comment IDs in brackets]
             'comm_b_ids': []
         }
 
-        cleaned = re.sub(r'```(?:python|json)?\s*', '', response)
-        cleaned = re.sub(r'```', '', cleaned).strip()
+        cleaned = re.sub(r'```(?:python|json)?\s*|```', '', response).strip()
+        cleaned = cleaned.replace('\u202f', ' ')
+        cleaned = cleaned.replace('\u2011', '-') 
+        cleaned = cleaned.replace('\u2013', '-')  
+        cleaned = cleaned.replace('\u2014', '-')   
+        cleaned = re.sub(r'[\u201c\u201d\u201e\u00ab\u00bb]', '"', cleaned)
+        cleaned = re.sub(r'[\u2018\u2019\u201a]', "'", cleaned)
         cleaned = re.sub(r'"+([AB]\d+)"+', r'"\1"', cleaned)
         cleaned = re.sub(r'\b([AB]\d+)\b', r'"\1"', cleaned)
         cleaned = re.sub(r'"+([AB]\d+)"+', r'"\1"', cleaned)
+        cleaned = re.sub(r'```(?:python|json)?\s*|```', '', response).strip()
+        cleaned = re.sub(r'^\*+|\*+$', '', cleaned).strip()
 
         try:
             match = re.search(r'\{.*\}', cleaned, re.DOTALL)
@@ -439,20 +445,22 @@ comment_ids: [List of relevant comment IDs in brackets]
                 result['comm_a_desc'] = desc_a[0] if isinstance(desc_a, list) else desc_a
                 result['comm_b_desc'] = desc_b[0] if isinstance(desc_b, list) else desc_b
 
+                raw_a = self._flatten_ids(data.get('comm_a_ids', []))
+                raw_b = self._flatten_ids(data.get('comm_b_ids', []))
                 result['comm_a_ids'] = [
-                    int(re.sub(r'[A-Za-z]', '', id_str))
-                    for id_str in data.get('comm_a_ids', [])
+                    int(re.sub(r'[A-Za-z]', '', str(id_str)))
+                    for id_str in raw_a
                     if re.search(r'\d+', str(id_str))
                 ]
                 result['comm_b_ids'] = [
-                    int(re.sub(r'[A-Za-z]', '', id_str))
-                    for id_str in data.get('comm_b_ids', [])
+                    int(re.sub(r'[A-Za-z]', '', str(id_str)))
+                    for id_str in raw_b
                     if re.search(r'\d+', str(id_str))
                 ]
 
-                min_len = min(len(result['comm_a_ids']), len(result['comm_b_ids']))
-                result['comm_a_ids'] = result['comm_a_ids'][:min_len]
-                result['comm_b_ids'] = result['comm_b_ids'][:min_len]
+                # min_len = min(len(result['comm_a_ids']), len(result['comm_b_ids']))
+                # result['comm_a_ids'] = result['comm_a_ids'][:min_len]
+                # result['comm_b_ids'] = result['comm_b_ids'][:min_len]
 
                 return result
 
@@ -491,7 +499,11 @@ comment_ids: [List of relevant comment IDs in brackets]
             all_cited = parsed_response['comm_a_ids'] + parsed_response['comm_b_ids']
 
         metrics['unique_comments'] = len(set(all_cited))
-        
+        if task == 2:
+            a_cited = set(parsed_response['comm_a_ids'])
+            b_cited = set(parsed_response['comm_b_ids'])
+            metrics['unique_comments_a'] = len(a_cited)
+            metrics['unique_comments_b'] = len(b_cited)
         total_input = len(input_comments)
         metrics['coverage'] = len(set(all_cited)) / total_input if total_input > 0 else 0
         
@@ -665,7 +677,13 @@ comment_ids: [List of relevant comment IDs in brackets]
             "prompt": prompt
         }
 
-
+    def _flatten_ids(self, ids_field) -> List:
+        """Flatten nested lists of IDs if the LLM returns grouped arrays."""
+        if not ids_field:
+            return []
+        if isinstance(ids_field[0], list):
+            return [item for sublist in ids_field for item in sublist]
+        return ids_field
 if __name__ == "__main__":
     analyzer = CommunityNormAnalyzer()
     if len(sys.argv) < 4:
