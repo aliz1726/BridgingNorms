@@ -11,8 +11,8 @@ from sentence_transformers import SentenceTransformer
 import random
 import sys
 from datetime import datetime
+import math
 
-# Load API configuration
 load_dotenv()
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 if not OPENROUTER_API_KEY:
@@ -21,7 +21,7 @@ if not OPENROUTER_API_KEY:
         raise RuntimeError("OPENROUTER_API_KEY not provided")
 
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
-MODEL = "openai/gpt-oss-120b:free"
+MODEL = "google/gemini-2.5-flash"
 
 
 class NotEnoughSamplesError(Exception):
@@ -70,10 +70,9 @@ class CommunityNormAnalyzer:
             'label': 'violation'
         })
         
-        df['violation'] = df['violation'] == 'violation'
+        df['violation'] = df['violation'].isin([1, "1", True, "violation"])
         df['comment_id'] = range(1, len(df) + 1)
 
-        # Debug: show what we're working with before filtering
         counts = df.groupby('community_id')['violation'].agg(
             violations=lambda x: x.sum(),
             non_violations=lambda x: (~x).sum()
@@ -136,15 +135,8 @@ class CommunityNormAnalyzer:
                 violating_df = community_df[community_df['violation'] == True]
                 non_violating_df = community_df[community_df['violation'] == False]
                 
-                # stop if not enough, or redo or lower?
                 if len(violating_df) < n_per_class or len(non_violating_df) < n_per_class:
-                    # raise ValueError(
-                    #     f"Community '{community_id}' does not have enough samples.\n"
-                    #     f"Required per class: {n_per_class}\n"
-                    #     f"Violations available: {len(violating_df)}\n"
-                    #     f"Non-violations available: {len(non_violating_df)}"
-                    # )
-                    return None
+                    return []
                 violating = violating_df.sample(n_per_class, random_state=42)
                 non_violating = non_violating_df.sample(n_per_class, random_state=42)
                 sampled = pd.concat([violating, non_violating])
@@ -252,58 +244,33 @@ output = [
         Returns:
             Formatted prompt string
         """
-        if joint:
-            community_a = comments[0][2]
+        community_a = comments[0][2]
 
-            def prefix(cid, comm):
-                return f"A{cid}" if comm == community_a else f"B{cid}"
+        def prefix(cid, comm):
+            return f"A{cid}" if comm == community_a else f"B{cid}"
 
-            comment_list = "\n".join([
-                f"({prefix(cid, comm)}, \"{text}\", {comm}, {status})"
-                for cid, text, comm, status in comments
-            ])
-            
-            prompt = f"""Below there is a list of {len(comments)} tuples with format (comment id, comment text, community id, violation status). These tuples represent comments from an online discussion platform from two different community ids.
+        comment_list = "\n".join([
+            f"({prefix(cid, comm)}, \"{text}\", {comm}, {status})"
+            for cid, text, comm, status in comments
+        ])
+        
+        prompt = f"""Below there is a list of {len(comments)} tuples with format (comment id, comment text, community id, violation status). These tuples represent comments from an online discussion platform from two different community ids.
 
-Here are the norms for community_a: {norm_a}, and the norms for community_b: {norm_b}.
+Here are the list of norms for both communities {norm_a + norm_b}
 Here are the comments:
 {comment_list}.
 These comments include both removed (violations) and kept (non-violations) comments.
 Using these comments, cite an even mix of both violation and non-violation comments, showing how each community defines their norms.
 Focus on what makes each community's definition different from the other:
 
-Please output the information a dictionary format with the following key-value pairs:
+Please output the information exactly in a dictionary format with the following key-value pairs:
 comm_a_desc: [Definition of the norm as particularly understood in Community A]
 comm_a_ids: [list of all comments ids from Community 0 that represent this speech norm in brackets (ie. [A23, A41]), without returning the comment text]
 comm_b_desc: [Definition of the norm as particularly understood in Community B]
 comm_b_ids: [list of all comments ids from Community 1 that represent this speech norm in brackets (ie. [B42, B630]), without returning the comment text]
 
 Make sure to cite only comments from community A–those ids that begin with the letter A in the list of comments for community A. And similarly for B–those ids that begin with the letter B in the list of comments for community B.
-Important: do not reference any comment IDs inside comm_a_desc or comm_b_desc. IDs belong only in comm_a_ids and comm_b_ids.
-"""
-        else:
-            community_a = comments[0][2]
-
-            def prefix(cid, comm):
-                return f"A{cid}" if comm == community_a else f"B{cid}"
-
-            comment_list = "\n".join([
-                f"({prefix(cid, comm)}, \"{text}\", {comm}, {status})"
-                for cid, text, comm, status in comments
-            ])
-            
-            prompt = f"""Below there is a list of {len(comments)} tuples with format (comment id, comment text, community id, violation status). These tuples represent comments from an online discussion platform from two different community ids.
-
-Here are the comments:
-{comment_list}
-
-How does this community define disrespect? Provide:
-1. A detailed definition of what constitutes disrespect in this community
-2. A list of comment IDs that exemplify this definition in brackets
-
-Please format your response as:
-definition: [Your definition]
-comment_ids: [List of relevant comment IDs in brackets]
+Important: do not reference any comment IDs inside comm_a_desc or comm_b_desc. IDs belong only in comm_a_ids and comm_b_ids. Do not include any additional text in the dictionary format.
 """
         
         return prompt
@@ -422,45 +389,46 @@ comment_ids: [List of relevant comment IDs in brackets]
             'comm_b_ids': []
         }
 
-        cleaned = re.sub(r'```(?:python|json)?\s*|```', '', response).strip()
-        cleaned = cleaned.replace('\u202f', ' ')
-        cleaned = cleaned.replace('\u2011', '-') 
-        cleaned = cleaned.replace('\u2013', '-')  
-        cleaned = cleaned.replace('\u2014', '-')   
-        cleaned = re.sub(r'[\u201c\u201d\u201e\u00ab\u00bb]', '"', cleaned)
-        cleaned = re.sub(r'[\u2018\u2019\u201a]', "'", cleaned)
-        cleaned = re.sub(r'"+([AB]\d+)"+', r'"\1"', cleaned)
-        cleaned = re.sub(r'\b([AB]\d+)\b', r'"\1"', cleaned)
-        cleaned = re.sub(r'"+([AB]\d+)"+', r'"\1"', cleaned)
-        cleaned = re.sub(r'```(?:python|json)?\s*|```', '', response).strip()
+        import re
+
+        cleaned = (
+            re.sub(r'```(?:python|json)?\s*|```', '', response)
+            .translate(str.maketrans({
+                '\u202f': ' ',
+                '\u2011': '-',
+                '\u2013': '-',
+                '\u2014': '-',
+                '\u201c': '"',
+                '\u201d': '"',
+                '\u201e': '"',
+                '\u00ab': '"',
+                '\u00bb': '"',
+                '\u2018': "'",
+                '\u2019': "'",
+                '\u201a': "'",
+            }))
+        )
+
+        cleaned = re.sub(r'"+([AB]\d+)"+|\b([AB]\d+)\b', r'"\1\2"', cleaned)
         cleaned = re.sub(r'^\*+|\*+$', '', cleaned).strip()
-
         try:
-            match = re.search(r'\{.*\}', cleaned, re.DOTALL)
+            match = list(re.finditer(r'\{.*\}', cleaned, re.DOTALL))
             if match:
-                data = json.loads(match.group())
+                data = json.loads(match[-1].group()) 
 
-                desc_a = data.get('comm_a_desc', '')
-                desc_b = data.get('comm_b_desc', '')
-                result['comm_a_desc'] = desc_a[0] if isinstance(desc_a, list) else desc_a
-                result['comm_b_desc'] = desc_b[0] if isinstance(desc_b, list) else desc_b
+                result['comm_a_desc'] = data.get('comm_a_desc', '')
+                result['comm_b_desc'] = data.get('comm_b_desc', '')
+                def clean_id(val):
+                    if isinstance(val, str):
+                        nums = re.findall(r'\d+', val)
+                        return int(nums[0]) if nums else None
+                    return int(val) if isinstance(val, (int, float)) else None
 
                 raw_a = self._flatten_ids(data.get('comm_a_ids', []))
                 raw_b = self._flatten_ids(data.get('comm_b_ids', []))
-                result['comm_a_ids'] = [
-                    int(re.sub(r'[A-Za-z]', '', str(id_str)))
-                    for id_str in raw_a
-                    if re.search(r'\d+', str(id_str))
-                ]
-                result['comm_b_ids'] = [
-                    int(re.sub(r'[A-Za-z]', '', str(id_str)))
-                    for id_str in raw_b
-                    if re.search(r'\d+', str(id_str))
-                ]
-
-                # min_len = min(len(result['comm_a_ids']), len(result['comm_b_ids']))
-                # result['comm_a_ids'] = result['comm_a_ids'][:min_len]
-                # result['comm_b_ids'] = result['comm_b_ids'][:min_len]
+                
+                result['comm_a_ids'] = [clean_id(x) for x in raw_a if clean_id(x) is not None]
+                result['comm_b_ids'] = [clean_id(x) for x in raw_b if clean_id(x) is not None]
 
                 return result
 
@@ -489,41 +457,41 @@ comment_ids: [List of relevant comment IDs in brackets]
         """
         metrics = {}
         metrics["task"] = task
+        all_cited = []
+        valid_cited = []
         
         if task == 1:
-            all_cited = []
             for norm_data in parsed_response.values():
                 all_cited.extend(norm_data['community_0']['comments'])
                 all_cited.extend(norm_data['community_1']['comments'])
         else: 
-            all_cited = parsed_response['comm_a_ids'] + parsed_response['comm_b_ids']
-
-        metrics['unique_comments'] = len(set(all_cited))
+            all_cited = parsed_response.get('comm_a_ids', []) + parsed_response.get('comm_b_ids', [])
+        
+        input_id_to_status = {int(c[0]): c[3] for c in input_comments}
+        valid_cited = [int(cid) for cid in all_cited if int(cid) in input_id_to_status]
+        unique_valid = set(valid_cited)
+        metrics['unique_comments'] = len(unique_valid)
         if task == 2:
-            a_cited = set(parsed_response['comm_a_ids'])
-            b_cited = set(parsed_response['comm_b_ids'])
-            metrics['unique_comments_a'] = len(a_cited)
-            metrics['unique_comments_b'] = len(b_cited)
+            a_cited = [int(cid) for cid in parsed_response.get('comm_a_ids', []) if int(cid) in input_id_to_status]
+            b_cited = [int(cid) for cid in parsed_response.get('comm_b_ids', []) if int(cid) in input_id_to_status]
+            metrics['unique_comments_a'] = len(set(a_cited))
+            metrics['unique_comments_b'] = len(set(b_cited))
         total_input = len(input_comments)
-        metrics['coverage'] = len(set(all_cited)) / total_input if total_input > 0 else 0
+        
+        metrics['coverage'] = len(unique_valid) / total_input if total_input > 0 else 0
         
         if len(all_cited) > 0:
             metrics['redundancy'] = 1 - (len(set(all_cited)) / len(all_cited))
         else:
             metrics['redundancy'] = 0
-        
-
-        input_id_to_status = {c[0]: c[3] for c in input_comments}
-        valid_cited = [cid for cid in all_cited if cid in input_id_to_status]
 
         if valid_cited:
             n_violations = sum(1 for cid in valid_cited if input_id_to_status[cid] == "violation")
             metrics['violating_fraction'] = n_violations / len(valid_cited)
         else:
-            metrics['violating_fraction'] = float('nan')
+            metrics['violating_fraction'] = 0.0
         
         metrics['time'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        
         return metrics
     
     def calculate_similarity(
@@ -534,6 +502,12 @@ comment_ids: [List of relevant comment IDs in brackets]
         """
         Calculate cosine similarity between two texts using embeddings.
         """
+        if isinstance(text1, list):
+            text1 = " ".join(map(str, text1))
+        if isinstance(text2, list):
+            text2 = " ".join(map(str, text2))
+        text1 = str(text1)
+        text2 = str(text2)
         embeddings = self.embedding_model.encode([text1, text2])
         
         vec1 = embeddings[0]
@@ -623,31 +597,58 @@ comment_ids: [List of relevant comment IDs in brackets]
             print(prompt[:500])
             print("="*60 + "\n")
 
+        max_retries = 3
 
-        response = self.call_llm(prompt)
-        run_log["llm_response"]["raw_response"] = response
+        parsed = None
+        metrics = None
+        response = None
 
-        if verbose:
-            print("\n" + "="*60)
-            print("RAW LLM RESPONSE:")
-            print(response)
-            print("="*60 + "\n")
+        for attempt in range(max_retries):
+            prompt_retry = prompt 
 
-        if task_name == "task1":
-            parsed = self.parse_task1_response(response)
+            if attempt > 0:
+                prompt_retry += "\n\nIMPORTANT: Return ONLY valid JSON. No prose."
+
+            if verbose:
+                print(f"\n Attempt {attempt + 1}/{max_retries}")
+            response = self.call_llm(prompt_retry)
+
+            if task_name == "task1":
+                parsed = self.parse_task1_response(response)
+            else:
+                parsed = self.parse_task2_response(response)
+                print("PARSED OUTPUT:", parsed)
+
+            if parsed is None or parsed == {}:
+                run_log["warnings"].append(f"Attempt {attempt+1}: parse failed")
+                continue
+
+            task_num = 1 if task_name == "task1" else 2
+            metrics = self.calculate_metrics(parsed, comments, task=task_num)
+
+            vf = metrics.get("violating_fraction", None)
+
+            empty_output = (
+                len(parsed.get("comm_a_ids", [])) == 0 and
+                len(parsed.get("comm_b_ids", [])) == 0
+            )
+
+            if (
+                vf is None
+                or (isinstance(vf, float) and math.isnan(vf))
+                or metrics.get("unique_comments", 0) == 0
+                or empty_output
+            ):
+                run_log["warnings"].append(f"Attempt {attempt+1}: invalid metrics")
+                continue
+            break
 
         else:
-            parsed = self.parse_task2_response(response)
-            print("PARSED OUTPUT:", parsed)  # add this
-
-        run_log["parsed_output"] = parsed
-
-        if not parsed:
-            run_log["warnings"].append("Parsing returned empty results")
-
-        task_num = 1 if task_name == "task1" else 2
-        metrics = self.calculate_metrics(parsed, comments, task=task_num)
-
+            return {
+                "error": "all retries failed",
+                "log": run_log
+            }
+        
         metrics["inputs"] = {
             "task_name": task_name,
             "community_a": community_a,
@@ -658,12 +659,25 @@ comment_ids: [List of relevant comment IDs in brackets]
             "joint": joint,
             "num_input_comments": len(comments),
         }
+        def normalize_text(x):
+            if isinstance(x, list):
+                return " ".join(map(str, x))
+            if x is None:
+                return ""
+            return str(x)
         if task_name == "task2":
             metrics["inputs"]["definition_similarity"] = self.calculate_similarity(
-            parsed["comm_a_desc"], parsed["comm_b_desc"]
+                normalize_text(parsed["comm_a_desc"]),
+                normalize_text(parsed["comm_b_desc"])
             )
 
 
+        run_log["llm_response"].setdefault("attempts", []).append({
+            "attempt": attempt,
+            "response": response,
+            "parsed": parsed
+        })
+        run_log["parsed_output"] = parsed
         run_log["metrics"] = metrics
 
         with open(f"{task_name}_run_log.json", "w") as f:
