@@ -226,6 +226,23 @@ output = [
 """
         return prompt
     
+    def infer_norms_prompt(self, comments: List[Tuple[str, str, str, str]], community_id: str) -> str:
+        community_comments = [(cid, text, comm, status) for cid, text, comm, status in comments if comm == community_id]
+        
+        comment_list = "\n".join([
+            f"({cid}, \"{text}\", {status})"
+            for cid, text, comm, status in community_comments
+        ])
+        
+        prompt = f"""Below are {len(community_comments)} comments from an online community, each labeled as either a violation (removed) or non_violation (kept).
+
+    Based on the pattern of what gets removed vs. kept, infer the main speech norms of this community. Return only a comma-separated list of single words or short phrases (e.g. respect, civility, no hate speech). No sentences, no explanations, no JSON.
+
+    Comments:
+    {comment_list}
+    """
+        return prompt
+    
     def create_task2_prompt(
         self,
         comments: List[Tuple[str, str, str, str]],
@@ -256,7 +273,7 @@ output = [
         
         prompt = f"""Below there is a list of {len(comments)} tuples with format (comment id, comment text, community id, violation status). These tuples represent comments from an online discussion platform from two different community ids.
 
-Here are the list of norms for both communities {norm_a + norm_b}
+Here are the list of norms for both communities {norm_a + ", " + norm_b}
 Here are the comments:
 {comment_list}.
 These comments include both removed (violations) and kept (non-violations) comments.
@@ -585,8 +602,8 @@ Important: do not reference any comment IDs inside comm_a_desc or comm_b_desc. I
         if task_name == "task1":
             prompt = self.create_task1_prompt(comments, num_norms=num_norms)
         elif task_name == "task2":
-            norm_a = " | ".join(df[df['community_id'] == community_a]['assigned_rule_cluster'].dropna().unique())
-            norm_b = " | ".join(df[df['community_id'] == community_b]['assigned_rule_cluster'].dropna().unique())
+            norm_a = self.call_llm(self.infer_norms_prompt(comments, community_a))
+            norm_b = self.call_llm(self.infer_norms_prompt(comments, community_b))
             prompt = self.create_task2_prompt(comments, norm_a=norm_a, norm_b=norm_b, joint=joint)
 
         run_log["prompt"] = prompt

@@ -174,6 +174,7 @@ def plot_metrics(records, task_name, norms, out_dir: Path):
         ax.grid(axis="y", linestyle="--", alpha=0.35)
         ax.legend(fontsize=9)
         ax.set_ylim(bottom=0)
+        ax.set_ylim(top=1.0)
 
     ax = axes_flat[len(metrics_to_plot)]
     for label, metric, color, marker in [
@@ -205,6 +206,7 @@ def plot_metrics(records, task_name, norms, out_dir: Path):
     ax.grid(axis="y", linestyle="--", alpha=0.35)
     ax.legend(fontsize=9)
     ax.set_ylim(bottom=0)
+    ax.set_ylim(top=200)
 
     for ax in axes_flat[n:]:
         ax.set_visible(False)
