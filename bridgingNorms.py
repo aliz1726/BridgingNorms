@@ -12,6 +12,7 @@ import random
 import sys
 from datetime import datetime
 import math
+import random
 
 load_dotenv()
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
@@ -21,7 +22,7 @@ if not OPENROUTER_API_KEY:
         raise RuntimeError("OPENROUTER_API_KEY not provided")
 
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
-MODEL = "google/gemini-2.5-flash"
+MODEL = "openai/gpt-4o-mini"
 
 
 class NotEnoughSamplesError(Exception):
@@ -53,11 +54,12 @@ class CommunityNormAnalyzer:
         
         Expected columns:
         - body: the comment content
+        - norm: reason violation/non-violation
         - subreddit_id: identifier for the community
         - label: 0 if kept, 1 if removed (violation)
         """
         df = pd.read_csv(filepath)
-        required_cols = ['body', 'subreddit_id', 'label']
+        required_cols = ['body', 'target_reason', 'subreddit_id', 'label']
         print(df['label'].value_counts())
         print(df['label'].dtype)
         print(df['label'].head(20))
@@ -66,6 +68,7 @@ class CommunityNormAnalyzer:
         
         df = df.rename(columns={
             'body': 'comment_text',
+            'target_reason': 'norm',
             'subreddit_id': 'community_id',
             'label': 'violation'
         })
@@ -103,7 +106,6 @@ class CommunityNormAnalyzer:
         community_a: str,
         community_b: str,
         n_samples: int,
-        # max_length: Optional[int] = None,
         balance_violations: bool = False
     ) -> List[Tuple[str, str, str, str]]:
         """
@@ -270,17 +272,27 @@ output = [
             f"({prefix(cid, comm)}, \"{text}\", {comm}, {status})"
             for cid, text, comm, status in comments
         ])
+        if random.random() < 0.5:
+            norm_one, norm_two = norm_a, norm_b
+        else:
+            norm_one, norm_two = norm_b, norm_a
         
+        norm_str = str(norm_one) + ", " + str(norm_two)
+
+
         prompt = f"""Below there is a list of {len(comments)} tuples with format (comment id, comment text, community id, violation status). These tuples represent comments from an online discussion platform from two different community ids.
 
-Here are the list of norms for both communities {norm_a + ", " + norm_b}
+Here is the norm that these communities have used to moderate content: {norm_str}
+
 Here are the comments:
 {comment_list}.
 These comments include both removed (violations) and kept (non-violations) comments.
 Using these comments, cite an even mix of both violation and non-violation comments, showing how each community defines their norms.
-Focus on what makes each community's definition different from the other:
+
+From the moderations, focus on what makes each community's definition of their norm different from the other:
 
 Please output the information exactly in a dictionary format with the following key-value pairs:
+
 comm_a_desc: [Definition of the norm as particularly understood in Community A]
 comm_a_ids: [list of all comments ids from Community 0 that represent this speech norm in brackets (ie. [A23, A41]), without returning the comment text]
 comm_b_desc: [Definition of the norm as particularly understood in Community B]
@@ -545,8 +557,6 @@ Important: do not reference any comment IDs inside comm_a_desc or comm_b_desc. I
         community_b: str,
         task_name: str,
         n_samples: int,
-        num_norms: int,
-        # max_length: Optional[int] = None,
         joint: bool = True,
         verbose: bool = True
     ) -> Dict:
@@ -557,7 +567,6 @@ Important: do not reference any comment IDs inside comm_a_desc or comm_b_desc. I
                 "community_a": community_a,
                 "community_b": community_b,
                 "n_samples": n_samples
-                # "max_length": max_length
             },
             "warnings": [],
             "sampling": {},
@@ -574,18 +583,16 @@ Important: do not reference any comment IDs inside comm_a_desc or comm_b_desc. I
             comments = self.sample_comments(
                 df, community_a, community_b,
                 n_samples=n_samples
-                # max_length=max_length
             )
 
         elif task_name == "task2":
             comments = self.sample_comments(
                 df, community_a, community_b,
                 n_samples=n_samples,
-                # max_length=max_length
                 balance_violations=True
             )
-            norm_a = " | ".join(df[df['community_id'] == community_a]['assigned_rule_cluster'].dropna().unique())
-            norm_b = " | ".join(df[df['community_id'] == community_b]['assigned_rule_cluster'].dropna().unique())
+            norm_a = df[df['community_id'] == community_a]['norm'].unique().tolist()
+            norm_b = df[df['community_id'] == community_b]['norm'].unique().tolist()
                 
 
         else:
@@ -599,12 +606,7 @@ Important: do not reference any comment IDs inside comm_a_desc or comm_b_desc. I
             run_log["warnings"].append("No comments sampled")
             return {}
 
-        if task_name == "task1":
-            prompt = self.create_task1_prompt(comments, num_norms=num_norms)
-        elif task_name == "task2":
-            norm_a = self.call_llm(self.infer_norms_prompt(comments, community_a))
-            norm_b = self.call_llm(self.infer_norms_prompt(comments, community_b))
-            prompt = self.create_task2_prompt(comments, norm_a=norm_a, norm_b=norm_b, joint=joint)
+        prompt = self.create_task2_prompt(comments, norm_a=norm_a, norm_b=norm_b, joint=joint)
 
         run_log["prompt"] = prompt
 
@@ -671,8 +673,6 @@ Important: do not reference any comment IDs inside comm_a_desc or comm_b_desc. I
             "community_a": community_a,
             "community_b": community_b,
             "n_samples": n_samples,
-            "num_norms": num_norms,
-            # "max_length": max_length,
             "joint": joint,
             "num_input_comments": len(comments),
         }
@@ -726,8 +726,6 @@ if __name__ == "__main__":
     print("Available communities:")
     print(df['community_id'].value_counts())
 
-    task_name = sys.argv[1]
-    num_norms = int(sys.argv[3])
     all_communities = df['community_id'].unique().tolist()
 
     while True:
@@ -738,9 +736,7 @@ if __name__ == "__main__":
                 community_a=community_a,
                 community_b=community_b,
                 task_name="task2",
-                n_samples=n_samples,
-                num_norms=2
-                # max_length=280
+                n_samples=n_samples
             )
             break
         except NotEnoughSamplesError as e:

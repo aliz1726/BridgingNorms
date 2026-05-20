@@ -16,14 +16,14 @@ _mod = importlib.import_module("bridgingNorms")
 _original_run_task = _mod.CommunityNormAnalyzer.run_task
 
 def run_task(self, df, community_a, community_b, task_name,
-                      n_samples, num_norms, joint=True, verbose=True, _reason="sweep"):
+                      n_samples, joint=True, verbose=True, _reason="sweep"):
     import builtins
     _real_input = builtins.input
     builtins.input = lambda _prompt="": _reason
     try:
         result = _original_run_task(
             self, df, community_a, community_b, task_name,
-            n_samples, num_norms, joint=joint, verbose=verbose
+            n_samples, joint=joint, verbose=verbose
         )
     finally:
         builtins.input = _real_input
@@ -36,17 +36,12 @@ NotEnoughSamplesError = _mod.NotEnoughSamplesError
 
 # parameters: eventually should be on input or automatic, for now just set here for ease
 DEFAULT_SIZES   = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200]
-DEFAULT_NORMS   = [5, 10]
 DEFAULT_TRIALS  = 10
 DATA_FILE       = "data_training_selected_clusters_comments_and_rules.csv"
-BASE_METRICS = ["coverage", "redundancy", "violating_fraction", "unique_comments", "unique_comments_a", "unique_comments_b"]
+BASE_METRICS = ["coverage", "violating_fraction", "unique_comments", "unique_comments_a", "unique_comments_b"]
 
-# pretty straightforward, parse args to use for metrics
 def parse_args():
     parser = argparse.ArgumentParser(description="Sweep sample sizes for bridgingNorms")
-    parser.add_argument("task_name", help="task1 or task2")
-    parser.add_argument("--norms", type=int, nargs="+", default=DEFAULT_NORMS,
-                    help=f"Number of norms to sweep (default: {DEFAULT_NORMS})")
     parser.add_argument("--sizes",  type=int, nargs="+", default=DEFAULT_SIZES,
                         help=f"Sample sizes to sweep (default: {DEFAULT_SIZES})")
     parser.add_argument("--trials", type=int, default=DEFAULT_TRIALS,
@@ -61,8 +56,7 @@ def parse_args():
 
 
 # one single trial with all the inputs, print saves some to find similarity
-def run_single(analyzer, df, community_a, community_b,
-               task_name, n_samples, num_norms, reason, verbose):
+def run_single(analyzer, df, community_a, community_b, n_samples, reason, verbose):
     """Run one trial. Returns a flat metrics dict, or None on failure."""
     captured = io.StringIO()
     ctx = contextlib.redirect_stdout(captured) if not verbose else contextlib.nullcontext()
@@ -73,9 +67,8 @@ def run_single(analyzer, df, community_a, community_b,
                 df,
                 community_a=community_a,
                 community_b=community_b,
-                task_name=task_name,
+                task_name="task2",
                 n_samples=n_samples,
-                num_norms=num_norms,
                 verbose=verbose,
                 _reason=reason,
             )
@@ -92,7 +85,6 @@ def run_single(analyzer, df, community_a, community_b,
         m["n_samples"]   = n_samples
         m["prompt"]          = result["prompt"]
         m["raw_response"]    = result["raw_response"]
-        m["parsed_output"]   = result["norms"]
         m["input_comments"]  = [
             {"comment_id": cid, "text": text, "community": comm, "status": status}
             for cid, text, comm, status in result["input_comments"]
@@ -122,7 +114,7 @@ def save_csv(records, path):
         writer.writeheader()
         writer.writerows(records)
 
-def plot_metrics(records, task_name, norms, out_dir: Path):
+def plot_metrics(records, out_dir: Path):
     if not records:
         print("No records to plot.")
         return
@@ -143,28 +135,24 @@ def plot_metrics(records, task_name, norms, out_dir: Path):
 
     for idx, metric in enumerate(metrics_to_plot):
         ax = axes_flat[idx]
+        xs_mean, ys_mean, ys_std = [], [], []
 
-        for n_idx, num_norms in enumerate(norms):
-            color = palette[n_idx % len(palette)]
-            norm_records = [r for r in records if r.get('num_norms') == num_norms]
-            xs_mean, ys_mean, ys_std = [], [], []
+        for size in sizes:
+            vals = [r[metric] for r in records
+                    if r["n_samples"] == size and r.get(metric) is not None]
+            if not vals:
+                continue
+            xs_mean.append(size)
+            ys_mean.append(float(np.mean(vals)))
+            ys_std.append(float(np.std(vals)))
 
-            for size in sizes:
-                vals = [r[metric] for r in norm_records
-                        if r["n_samples"] == size and r.get(metric) is not None]
-                if not vals:
-                    continue
-                xs_mean.append(size)
-                ys_mean.append(float(np.mean(vals)))
-                ys_std.append(float(np.std(vals)))
-
-            if xs_mean:
-                ys_mean_arr = np.array(ys_mean)
-                ys_std_arr  = np.array(ys_std)
-                ax.fill_between(xs_mean, ys_mean_arr - ys_std_arr, ys_mean_arr + ys_std_arr,
-                                color=color, alpha=0.18, zorder=2)
-                ax.plot(xs_mean, ys_mean_arr, "o-", linewidth=2.2, markersize=8,
-                        color=color, zorder=4, label=f"norms={num_norms}")
+        if xs_mean:
+            ys_mean_arr = np.array(ys_mean)
+            ys_std_arr  = np.array(ys_std)
+            ax.fill_between(xs_mean, ys_mean_arr - ys_std_arr, ys_mean_arr + ys_std_arr,
+                            color=palette[0], alpha=0.18, zorder=2)
+            ax.plot(xs_mean, ys_mean_arr, "o-", linewidth=2.2, markersize=8,
+                    color=palette[0], zorder=4)
 
         pretty = metric.replace("_", " ").title()
         ax.set_title(pretty, fontsize=13, fontweight="bold", pad=8)
@@ -172,7 +160,6 @@ def plot_metrics(records, task_name, norms, out_dir: Path):
         ax.set_ylabel(pretty, fontsize=11)
         ax.xaxis.set_major_locator(ticker.FixedLocator(sizes))
         ax.grid(axis="y", linestyle="--", alpha=0.35)
-        ax.legend(fontsize=9)
         ax.set_ylim(bottom=0)
         ax.set_ylim(top=1.0)
 
@@ -211,11 +198,11 @@ def plot_metrics(records, task_name, norms, out_dir: Path):
     for ax in axes_flat[n:]:
         ax.set_visible(False)
 
-    fig.suptitle(f"Metrics vs Sample Size  —  {task_name}",
+    fig.suptitle(f"Metrics vs Sample Size ",
                  fontsize=15, fontweight="bold", y=1.02)
     fig.tight_layout()
 
-    plot_path = out_dir / f"{task_name}_sweep_metrics.png"
+    plot_path = out_dir / f"sweep_metrics.png"
     fig.savefig(plot_path, dpi=150, bbox_inches="tight")
     print(f"\nPlot saved → {plot_path}")
     plt.close(fig)
@@ -223,22 +210,19 @@ def plot_metrics(records, task_name, norms, out_dir: Path):
 
 def main():
     args      = parse_args()
-    task_name = args.task_name
-    norms     = sorted(args.norms)
     sizes     = sorted(args.sizes)
     trials    = args.trials
     reason    = args.reason
     verbose   = args.verbose
 
     print(f"\n{'='*60}")
-    print(f"  Sweep  :  {task_name}  |  norms = {norms}")
     print(f"  Sizes  :  {sizes}")
     print(f"  Trials :  {trials} per size")
     print(f"  Reason :  {reason}")
     print(f"{'='*60}\n")
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    out_dir   = Path(f"sweep_{task_name}_{timestamp}")
+    out_dir   = Path(f"sweep_{timestamp}")
     out_dir.mkdir(exist_ok=True)
 
     analyzer = CommunityNormAnalyzer()
@@ -248,61 +232,53 @@ def main():
 
     all_records = []
 
-    for num_norms in norms:
-        print(f"\n{'='*60}")
-        print(f"  Norms = {norms}")
-        print(f"{'='*60}")
+    for n_samples in sizes:
+        min_samp = n_samples // 2
+        counts = df.groupby("community_id")["violation"].agg(
+            violations=lambda x: x.sum(),
+            non_violations=lambda x: (~x).sum()
+        )
+        eligible = counts[
+            (counts["violations"] >= min_samp) &
+            (counts["non_violations"] >= min_samp)
+        ].index.tolist()
 
-        for n_samples in sizes:
-            min_samp = n_samples // 2
-            counts = df.groupby("community_id")["violation"].agg(
-                violations=lambda x: x.sum(),
-                non_violations=lambda x: (~x).sum()
+        print(f"\n── n_samples = {n_samples}  (eligible communities: {len(eligible)}) {'─'*20}")
+
+        if len(eligible) < 2:
+            print(f"  Skipping — fewer than 2 communities have {min_samp} samples per class")
+            continue
+
+        trial_count = 0
+        attempts    = 0
+        max_attempts = trials * 15
+
+        while trial_count < trials and attempts < max_attempts:
+            attempts += 1
+            community_a, community_b = random.sample(eligible, 2)
+            print(f"  Trial {trial_count + 1}/{trials}: {community_a}  vs  {community_b}")
+
+            metrics = run_single(
+                analyzer, df, community_a, community_b, n_samples, reason, verbose
             )
-            eligible = counts[
-                (counts["violations"] >= min_samp) &
-                (counts["non_violations"] >= min_samp)
-            ].index.tolist()
+            if metrics is not None:
+                all_records.append(metrics)
+                trial_count += 1
+                print(f"    trial {trial_count}/{trials}  "
+                        f"cov={metrics.get('coverage', float('nan')):.3f}  "
+                        f"vf={metrics.get('violating_fraction', float('nan')):.3f}")
 
-            print(f"\n── n_samples = {n_samples}  (eligible communities: {len(eligible)}) {'─'*20}")
+        if trial_count < trials:
+            print(f"  Only {trial_count}/{trials} trials completed for n_samples={n_samples}")
 
-            if len(eligible) < 2:
-                print(f"  Skipping — fewer than 2 communities have {min_samp} samples per class")
-                continue
-
-            trial_count = 0
-            attempts    = 0
-            max_attempts = trials * 15
-
-            while trial_count < trials and attempts < max_attempts:
-                attempts += 1
-                community_a, community_b = random.sample(eligible, 2)
-                print(f"  Trial {trial_count + 1}/{trials}: {community_a}  vs  {community_b}")
-
-                metrics = run_single(
-                    analyzer, df, community_a, community_b,
-                    task_name, n_samples, num_norms, reason, verbose
-                )
-                if metrics is not None:
-                    metrics['num_norms'] = num_norms
-                    all_records.append(metrics)
-                    trial_count += 1
-                    print(f"    trial {trial_count}/{trials}  "
-                          f"cov={metrics.get('coverage', float('nan')):.3f}  "
-                          f"red={metrics.get('redundancy', float('nan')):.3f}  "
-                          f"vf={metrics.get('violating_fraction', float('nan')):.3f}")
-
-            if trial_count < trials:
-                print(f"  Only {trial_count}/{trials} trials completed for n_samples={n_samples}")
-
-    jsonl_path = out_dir / f"{task_name}_sweep_results.jsonl"
-    csv_path   = out_dir / f"{task_name}_sweep_results.csv"
+    jsonl_path = out_dir / f"sweep_results.jsonl"
+    csv_path   = out_dir / f"sweep_results.csv"
     save_jsonl(all_records, jsonl_path)
     save_csv(all_records,   csv_path)
     print(f"\nResults  → {jsonl_path}")
     print(f"Results  → {csv_path}")
 
-    plot_metrics(all_records, task_name, norms, out_dir)
+    plot_metrics(all_records, out_dir)
 
     print(f"\nAll outputs saved to: {out_dir}/\n")
 
