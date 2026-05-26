@@ -1,0 +1,587 @@
+[
+  {
+    "n_samples": 10,
+    "trial": 0,
+    "community_a": "t5_2qky2",
+    "community_b": "t5_2qhff",
+    "norms": {
+      "t5_2qky2": {
+        "description": "Community A moderates content by focusing on maintaining civility and discouraging harmful language. Comments that include overtly aggressive or violent statements are flagged as violations.",
+        "cited_ids": [
+          8954,
+          5229,
+          10757,
+          13306,
+          362
+        ]
+      },
+      "t5_2qhff": {
+        "description": "Community B emphasizes professionalism and discourages unprofessional or rude behavior. Comments that display inappropriate behavior or disparaging remarks towards others are considered violations.",
+        "cited_ids": [
+          26383,
+          9110,
+          28761,
+          11040,
+          15774
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 20,
+    "trial": 0,
+    "community_a": "t5_2qky2",
+    "community_b": "t5_2qhff",
+    "norms": {
+      "t5_2qky2": {
+        "description": "Community A defines its norm as maintaining civil discourse and refraining from aggressive or disrespectful language towards others. Comments that exhibit hostility or use derogatory terms are deemed violations.",
+        "cited_ids": [
+          26383,
+          15774,
+          15987,
+          2446,
+          19155,
+          28761,
+          26389,
+          11040,
+          9110,
+          6407
+        ]
+      },
+      "t5_2qhff": {
+        "description": "Community B emphasizes professional and respectful communication, particularly in discussions related to healthcare and personal experiences. Comments perceived as unprofessional, rude, or dismissive are flagged as violations.",
+        "cited_ids": [
+          2424,
+          10757,
+          30688,
+          8954,
+          362,
+          13306,
+          8596,
+          19354,
+          5229,
+          16360
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 30,
+    "trial": 0,
+    "community_a": "t5_2qky2",
+    "community_b": "t5_2qhff",
+    "norms": {
+      "t5_2qky2": {
+        "description": [
+          "Community A defines its norm as prohibiting language that is overtly disrespectful or hostile, including name-calling and personal attacks, as well as any insinuations that undermine the dignity of individuals or groups."
+        ],
+        "cited_ids": [
+          15098,
+          2446,
+          26383,
+          26389,
+          19155
+        ]
+      },
+      "t5_2qhff": {
+        "description": [
+          "Community B's norm emphasizes the avoidance of unprofessional, rude, or inappropriate behavior, focusing on maintaining a civil discourse that refrains from personal insults or derogatory remarks."
+        ],
+        "cited_ids": [
+          2482,
+          19354,
+          8596,
+          4682,
+          10757
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 40,
+    "trial": 0,
+    "community_a": "t5_2qky2",
+    "community_b": "t5_2qhff",
+    "norms": {
+      "t5_2qky2": {
+        "description": "Community A defines their norm as prohibiting unprofessional, rude, or inappropriate behavior, which includes personal attacks and inflammatory language directed at individuals or groups. Comments that display a lack of civility or that are derogatory towards others are considered violations.",
+        "cited_ids": [
+          4682,
+          10757,
+          2482,
+          29973,
+          8596,
+          15943,
+          6940,
+          30688
+        ]
+      },
+      "t5_2qhff": {
+        "description": "Community B's norm emphasizes civility and respectful discourse, discouraging name-calling, derogatory remarks, and personal attacks. Violations include comments that label or insult individuals or groups, reflecting a lack of constructive engagement in discussions.",
+        "cited_ids": [
+          13690,
+          15774,
+          26383,
+          28761,
+          2342,
+          19155,
+          2446,
+          4053
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 50,
+    "trial": 0,
+    "community_a": "t5_2qky2",
+    "community_b": "t5_2qhff",
+    "norms": {
+      "t5_2qky2": {
+        "description": "Community A defines its norm as prohibiting comments that are derogatory, dismissive, or disrespectful towards individuals or groups, particularly in relation to religious beliefs. This includes hateful or mocking language directed at the faith or practices of its members.",
+        "cited_ids": [
+          958,
+          25777,
+          15987,
+          2342,
+          19155,
+          27749,
+          26740,
+          13979,
+          26383,
+          15098
+        ]
+      },
+      "t5_2qhff": {
+        "description": "Community B's norm centers around discouraging comments that display unprofessionalism, rudeness, or inappropriate behavior, particularly in discussions related to healthcare and professional conduct. This includes personal attacks and derogatory remarks about individuals or professions.",
+        "cited_ids": [
+          5229,
+          6940,
+          362,
+          30778,
+          16787,
+          18160,
+          2187,
+          23465,
+          8596,
+          8797
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 60,
+    "trial": 0,
+    "community_a": "t5_2qky2",
+    "community_b": "t5_2qhff",
+    "norms": {
+      "t5_2qky2": {
+        "description": "Community A defines its norm as promoting civility and respect in discussions, criticizing members who use derogatory language or make personal attacks against individuals or groups. It emphasizes constructive dialogue, even when addressing contentious topics.",
+        "cited_ids": [
+          28761,
+          13979,
+          7509,
+          958,
+          2342,
+          9110,
+          4053,
+          3488,
+          18160,
+          15987
+        ]
+      },
+      "t5_2qhff": {
+        "description": "Community B interprets its norm as prohibiting unprofessional, rude, or inappropriate behavior, particularly when comments include insults or demeaning language towards others, especially in professional contexts. It values a level of decorum and respect among its members.",
+        "cited_ids": [
+          6940,
+          8797,
+          16787,
+          18237,
+          3652,
+          5708,
+          19785,
+          29973,
+          9442,
+          15943
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 70,
+    "trial": 0,
+    "community_a": "t5_2qky2",
+    "community_b": "t5_2qhff",
+    "norms": {
+      "t5_2qky2": {
+        "description": "Community A defines their norm as maintaining a respectful and civil discourse, avoiding personal attacks, and refraining from derogatory language, particularly against individuals or groups based on their beliefs. Comments that violate this norm typically include inflammatory statements, insults, or any form of unprofessional behavior.",
+        "cited_ids": [
+          26740,
+          28761,
+          7509,
+          19155,
+          3957,
+          958,
+          13979,
+          11040,
+          13005,
+          26315
+        ]
+      },
+      "t5_2qhff": {
+        "description": "Community B's norm emphasizes professionalism and constructive criticism within discussions, holding members accountable for their language and approach. Violations of this norm often include aggressive remarks, personal insults, and a lack of civility in debates, especially when addressing differing opinions or discussing sensitive topics.",
+        "cited_ids": [
+          5708,
+          3677,
+          2482,
+          13530,
+          24031,
+          20269,
+          29973,
+          16787,
+          31293,
+          2682
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 80,
+    "trial": 0,
+    "community_a": "t5_2qky2",
+    "community_b": "t5_2qhff",
+    "norms": {
+      "t5_2qky2": {
+        "description": "Community A defines their norm as promoting respectful and professional discourse, avoiding personal attacks and inflammatory language. Comments that demean or belittle others, even when discussing professional topics, are considered violations.",
+        "cited_ids": [
+          26330,
+          8797,
+          13530,
+          51,
+          362,
+          19785,
+          27701,
+          8596,
+          4906,
+          3652,
+          29973,
+          30688,
+          13032,
+          20269,
+          5229,
+          15943,
+          18237,
+          23465
+        ]
+      },
+      "t5_2qhff": {
+        "description": "Community B defines their norm as allowing for critical discourse and robust debate, but discourages disrespectful or derogatory language. Comments that dismiss others' opinions or employ name-calling are seen as violations, even within the context of critique.",
+        "cited_ids": [
+          15348,
+          19647,
+          6407,
+          19155,
+          24090,
+          28605,
+          10142,
+          13005,
+          2446,
+          26383,
+          15987,
+          27749,
+          31869,
+          31052,
+          13059,
+          27505
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 90,
+    "trial": 0,
+    "community_a": "t5_2qky2",
+    "community_b": "t5_2qhff",
+    "norms": {
+      "t5_2qky2": {
+        "description": "Community A tends to moderate comments based on professionalism and respectfulness, emphasizing the importance of civility and constructive dialogue in discussions. Comments that are perceived as rude, dismissive, or unprofessional are likely to be flagged as violations.",
+        "cited_ids": [
+          10868,
+          27827,
+          362,
+          21840,
+          29973,
+          5229,
+          31105,
+          31193,
+          17105,
+          24333
+        ]
+      },
+      "t5_2qhff": {
+        "description": "Community B focuses on maintaining a civil discourse while also being sensitive to issues of oppression, identity, and personal experience. Comments that are deemed to attack individuals or groups, or that perpetuate hate or bigotry, are moderated more strictly.",
+        "cited_ids": [
+          6988,
+          10142,
+          2446,
+          6407,
+          3957,
+          15098,
+          24090,
+          25013,
+          19155,
+          7509
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 100,
+    "trial": 0,
+    "community_a": "t5_2qky2",
+    "community_b": "t5_2qhff",
+    "norms": {
+      "t5_2qky2": {
+        "description": "Community A defines its norm as prohibiting unprofessional, rude, or inappropriate behavior, emphasizing civil discourse and respect among members. Comments that include personal attacks or derogatory language are viewed as violations of this norm.",
+        "cited_ids": [
+          20269,
+          27827,
+          19354,
+          17105,
+          13530,
+          4682,
+          51,
+          2482,
+          10757,
+          4682,
+          10451,
+          19978,
+          10757,
+          5229,
+          5228
+        ]
+      },
+      "t5_2qhff": {
+        "description": "Community B's norm focuses on maintaining civility, discouraging bigoted or disrespectful comments towards individuals or groups. This includes a strong stance against homophobia, sexism, and any form of discrimination, which are deemed unacceptable within discussions.",
+        "cited_ids": [
+          13979,
+          23354,
+          19155,
+          19155,
+          27692,
+          26389,
+          4053,
+          15059,
+          15098,
+          24090,
+          11540,
+          7509,
+          10142,
+          26383,
+          18160
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 110,
+    "trial": 0,
+    "community_a": "t5_2qky2",
+    "community_b": "t5_2qhff",
+    "norms": {
+      "t5_2qky2": {
+        "description": "Community A emphasizes the importance of professionalism and respect in discussions. Comments that display rude, unprofessional, or inappropriate behavior are considered violations of this norm.",
+        "cited_ids": [
+          5228,
+          6713,
+          25129,
+          22079,
+          5708
+        ]
+      },
+      "t5_2qhff": {
+        "description": "Community B prioritizes civil discourse and discourages personal attacks or derogatory remarks. Violation of this norm includes comments that undermine respectful engagement and contain hateful or bigoted language.",
+        "cited_ids": [
+          31869,
+          3446,
+          25552,
+          4053,
+          10142
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 120,
+    "trial": 0,
+    "community_a": "t5_2qky2",
+    "community_b": "t5_2qhff",
+    "norms": {
+      "t5_2qky2": {
+        "description": "Community A emphasizes respectful dialogue, a willingness to engage in thoughtful discussion, and the importance of personal experiences without resorting to personal attacks or dismissive language. Violations include comments that undermine the civil nature of discourse by using derogatory terms or making unfounded accusations.",
+        "cited_ids": [
+          24333,
+          2954,
+          21840,
+          30592,
+          24369,
+          21221,
+          17035,
+          15013,
+          5580,
+          906,
+          19544,
+          20722,
+          13633,
+          15348,
+          29193
+        ]
+      },
+      "t5_2qhff": {
+        "description": "Community B defines its norms through a lens of irony and sarcasm, often using humor to critique perceived inadequacies in others, especially in the medical and professional fields. Violations typically involve overtly aggressive or derogatory comments that disregard the experiences and feelings of others.",
+        "cited_ids": [
+          8596,
+          21840,
+          17105,
+          15943,
+          24031,
+          29193,
+          26880,
+          16239,
+          5209,
+          20175,
+          6713,
+          20166,
+          1260,
+          5708,
+          19562
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 130,
+    "trial": 0,
+    "community_a": "t5_2qky2",
+    "community_b": "t5_2qhff",
+    "norms": {
+      "t5_2qky2": {
+        "description": "Community A's norm emphasizes the importance of professionalism and civility in discussions, discouraging unprofessional or rude behavior and promoting respectful communication, particularly in healthcare contexts.",
+        "cited_ids": [
+          3853,
+          16827,
+          13032,
+          1260,
+          30871,
+          24031,
+          17062,
+          16360,
+          28540,
+          514,
+          32397,
+          30893,
+          27827,
+          20269,
+          17105,
+          6213
+        ]
+      },
+      "t5_2qhff": {
+        "description": "Community B's norm focuses on maintaining a civil discourse but allows for more aggressive critiques, particularly against established norms or beliefs. It encourages passionate expression while still holding a standard for civility, often challenging perceived hypocrisy or bigotry.",
+        "cited_ids": [
+          16126,
+          98,
+          8742,
+          30597,
+          30199,
+          13633,
+          19544,
+          15774,
+          19155,
+          22079,
+          26315,
+          10142,
+          18093,
+          12535,
+          24369
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 140,
+    "trial": 0,
+    "community_a": "t5_2qky2",
+    "community_b": "t5_2qhff",
+    "norms": {
+      "t5_2qky2": {
+        "description": "Community A emphasizes respectful discourse and civil behavior, avoiding personal attacks and derogatory language. Comments that challenge individuals without constructive criticism or resort to insults are seen as violations.",
+        "cited_ids": [
+          27321,
+          8797,
+          4715,
+          4906,
+          51,
+          5425,
+          11332,
+          17062,
+          20166,
+          17656
+        ]
+      },
+      "t5_2qhff": {
+        "description": "Community B allows for more aggressive expressions of opinion, including personal attacks and inflammatory remarks. Norms include a tolerance for strong language and derogatory statements about beliefs or individuals, as long as they relate to the topic at hand.",
+        "cited_ids": [
+          26751,
+          26239,
+          10603,
+          8742,
+          4053,
+          9079,
+          27692,
+          11908,
+          24369,
+          7509
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 150,
+    "trial": 0,
+    "community_a": "t5_2qky2",
+    "community_b": "t5_2qhff",
+    "norms": {
+      "t5_2qky2": {
+        "description": "Community A emphasizes respectful dialogue and discourages personal attacks, valuing civility and thoughtful discussion. Comments that express frustration or hostility without constructive engagement are considered violations.",
+        "cited_ids": [
+          17979,
+          28761,
+          13005,
+          9079,
+          4053,
+          27692,
+          13057,
+          13059,
+          26740,
+          19155
+        ]
+      },
+      "t5_2qhff": {
+        "description": "Community B allows for more aggressive and confrontational discourse, where personal attacks and derogatory remarks are more tolerated. The community often engages in humor and sarcasm, but this can blur the lines of civility.",
+        "cited_ids": [
+          5425,
+          19785,
+          24333,
+          4161,
+          13530,
+          18160,
+          3652,
+          5708,
+          8904,
+          8742
+        ]
+      }
+    }
+  }
+]

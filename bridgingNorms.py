@@ -22,7 +22,7 @@ if not OPENROUTER_API_KEY:
         raise RuntimeError("OPENROUTER_API_KEY not provided")
 
 API_URL = "https://openrouter.ai/api/v1/chat/completions"
-MODEL = "openai/gpt-4o-mini"
+MODEL = "google/gemini-2.5-flash"
 
 
 class NotEnoughSamplesError(Exception):

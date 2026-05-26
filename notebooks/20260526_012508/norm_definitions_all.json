@@ -1,0 +1,534 @@
+[
+  {
+    "n_samples": 10,
+    "trial": 0,
+    "community_a": "t5_2rnve",
+    "community_b": "t5_2w2s8",
+    "norms": {
+      "t5_2rnve": {
+        "description": "Community A emphasizes respectful discourse, discouraging name-calling and derogatory language while allowing for critical debate. They promote constructive criticism and the sharing of diverse viewpoints without resorting to personal attacks.",
+        "cited_ids": [
+          29446,
+          6797,
+          16801,
+          26468,
+          22124,
+          16623,
+          6216,
+          22068
+        ]
+      },
+      "t5_2w2s8": {
+        "description": "Community B has a tolerance for harsh language and personal insults, often allowing commenters to express frustration and aggression towards others. Their norm seems to permit a more confrontational style of debate, where direct insults are accepted as part of the discussion.",
+        "cited_ids": [
+          32462,
+          27180,
+          11253,
+          18235,
+          21450
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 20,
+    "trial": 0,
+    "community_a": "t5_2rnve",
+    "community_b": "t5_2w2s8",
+    "norms": {
+      "t5_2rnve": {
+        "description": "Community A emphasizes respectful discourse while discouraging personal attacks and aggressive language. Comments that deviate from this norm often include insults or derogatory remarks directed at other users.",
+        "cited_ids": [
+          32462,
+          21450,
+          10527,
+          6975,
+          11253,
+          19836,
+          27180
+        ]
+      },
+      "t5_2w2s8": {
+        "description": "Community B focuses on a more combative style of debate, permitting strong language and confrontational comments as part of its discourse. Violations in this community often arise from perceived disrespect or failure to engage with arguments meaningfully.",
+        "cited_ids": [
+          5846,
+          16623,
+          29446,
+          22068,
+          6216,
+          22166,
+          11379
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 30,
+    "trial": 0,
+    "community_a": "t5_2rnve",
+    "community_b": "t5_2w2s8",
+    "norms": {
+      "t5_2rnve": {
+        "description": "Community A emphasizes technical discussions and constructive criticism, encouraging users to engage respectfully while challenging ideas. However, disrespectful language or personal attacks are not tolerated.",
+        "cited_ids": [
+          3937,
+          11194,
+          6975,
+          32462,
+          6090,
+          4621,
+          18235,
+          19836,
+          27180
+        ]
+      },
+      "t5_2w2s8": {
+        "description": "Community B prioritizes respectful discourse and discourages derogatory remarks or personal attacks. While discussions can be heated, maintaining a level of respect is essential, and violations often involve mockery or belittling others.",
+        "cited_ids": [
+          6216,
+          11379,
+          14911,
+          30187,
+          22166,
+          7217,
+          25716,
+          22068,
+          16623
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 40,
+    "trial": 0,
+    "community_a": "t5_2rnve",
+    "community_b": "t5_2w2s8",
+    "norms": {
+      "t5_2rnve": {
+        "description": "Community A emphasizes respectful dialogue and discourages personal attacks or derogatory remarks. The community aims to foster constructive discussions and educate members on differing viewpoints without resorting to insults or aggressive language.",
+        "cited_ids": [
+          26468,
+          30187,
+          22068,
+          5846,
+          2508,
+          11379
+        ]
+      },
+      "t5_2w2s8": {
+        "description": "Community B appears to have a more relaxed attitude towards discourse, allowing for a wider range of expressions, including harsher criticisms and insults. The community accepts more aggressive and confrontational interactions, reflecting a more informal and candid communication style.",
+        "cited_ids": [
+          19743,
+          21450,
+          6090,
+          7107,
+          18235,
+          6975
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 50,
+    "trial": 0,
+    "community_a": "t5_2rnve",
+    "community_b": "t5_2w2s8",
+    "norms": {
+      "t5_2rnve": {
+        "description": "Community A emphasizes respectful communication, often discouraging insults and aggressive language. However, it tends to allow critical feedback and technical discussions, even if they are blunt or confrontational, as long as they are framed within the context of constructive advice.",
+        "cited_ids": [
+          1851,
+          19743,
+          16783,
+          10527,
+          13012,
+          21450,
+          30831,
+          27180,
+          3947,
+          19836
+        ]
+      },
+      "t5_2w2s8": {
+        "description": "Community B maintains a stricter interpretation of respect, where personal attacks and derogatory remarks are less tolerated. The focus is more on fostering a supportive environment, discouraging vitriol and personal judgments, even in heated discussions.",
+        "cited_ids": [
+          26468,
+          22900,
+          22068,
+          18496,
+          6042,
+          31723,
+          29446,
+          22124,
+          2508,
+          30187
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 60,
+    "trial": 0,
+    "community_a": "t5_2rnve",
+    "community_b": "t5_2w2s8",
+    "norms": {
+      "t5_2rnve": {
+        "description": "Community A prioritizes respectful discourse, where personal attacks and derogatory language are not tolerated. Comments that express frustration or disagreement should do so without resorting to insults or disrespectful language.",
+        "cited_ids": [
+          11253,
+          2750,
+          32030,
+          1851,
+          21082,
+          27180,
+          19743,
+          13012,
+          4621,
+          4044,
+          28083
+        ]
+      },
+      "t5_2w2s8": {
+        "description": "Community B emphasizes a more open and argumentative style, where robust debate is encouraged. However, comments that devolve into name-calling or disrespect towards others are viewed as violations of community norms.",
+        "cited_ids": [
+          22900,
+          30456,
+          5846,
+          7676,
+          4092,
+          22268,
+          30187,
+          19040,
+          22068,
+          29224
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 70,
+    "trial": 0,
+    "community_a": "t5_2rnve",
+    "community_b": "t5_2w2s8",
+    "norms": {
+      "t5_2rnve": {
+        "description": "Community A emphasizes respectful discourse and discourages personal attacks or inflammatory language. Violation of this norm is evident in comments that use derogatory terms or aggressive confrontations, while non-violations maintain a focus on helpful, constructive responses.",
+        "cited_ids": [
+          11253,
+          32030,
+          19836,
+          21082,
+          6090,
+          27180,
+          4044,
+          10527
+        ]
+      },
+      "t5_2w2s8": {
+        "description": "Community B prioritizes open dialogue and often engages in direct and blunt language. Violations occur when comments devolve into disrespectful name-calling or hostility, whereas non-violations reflect casual banter or constructive criticism without crossing into personal attacks.",
+        "cited_ids": [
+          14911,
+          22900,
+          19040,
+          22166,
+          32194,
+          6780,
+          6042,
+          16623
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 80,
+    "trial": 0,
+    "community_a": "t5_2rnve",
+    "community_b": "t5_2w2s8",
+    "norms": {
+      "t5_2rnve": {
+        "description": "Community A emphasizes respectful discourse, discouraging personal attacks and derogatory language while promoting civil discussion, even on contentious topics.",
+        "cited_ids": [
+          5623,
+          28042,
+          31722,
+          6042,
+          22068,
+          10217,
+          6216,
+          19040,
+          11379,
+          3529
+        ]
+      },
+      "t5_2w2s8": {
+        "description": "Community B allows for more aggressive and confrontational exchanges, often tolerating or even encouraging insults and harsh critiques as part of the discourse.",
+        "cited_ids": [
+          21082,
+          3937,
+          17888,
+          6090,
+          12449,
+          10149,
+          11647,
+          19836,
+          7398,
+          4521
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 90,
+    "trial": 0,
+    "community_a": "t5_2rnve",
+    "community_b": "t5_2w2s8",
+    "norms": {
+      "t5_2rnve": {
+        "description": "Community A values respectful discourse and discourages personal attacks or derogatory language. Norms are centered around constructive criticism and thoughtful engagement rather than inflammatory comments.",
+        "cited_ids": [
+          23374,
+          26971,
+          30445,
+          22068,
+          32870,
+          20732
+        ]
+      },
+      "t5_2w2s8": {
+        "description": "Community B tends to have a more aggressive and confrontational style of communication. This community allows for insults, derogatory remarks, and personal attacks as part of their engagement, often prioritizing bluntness over respect.",
+        "cited_ids": [
+          18785,
+          14927,
+          17888,
+          21082,
+          28083,
+          20184
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 100,
+    "trial": 0,
+    "community_a": "t5_2rnve",
+    "community_b": "t5_2w2s8",
+    "norms": {
+      "t5_2rnve": {
+        "description": "Community A values respectful discourse, discouraging personal attacks and promoting constructive arguments. They emphasize the importance of understanding different perspectives without resorting to derogatory language or insults.",
+        "cited_ids": [
+          4180,
+          32194,
+          6707,
+          6797,
+          11379,
+          2641,
+          18555,
+          30456,
+          29430,
+          21853
+        ]
+      },
+      "t5_2w2s8": {
+        "description": "Community B, on the other hand, tends to allow more aggressive language and insults, often engaging in heated debates that can lead to personal attacks. This community seems to prioritize blunt honesty and direct confrontation over politeness.",
+        "cited_ids": [
+          2750,
+          19836,
+          21082,
+          1329,
+          22068,
+          18792,
+          4044,
+          10149,
+          4621,
+          30054
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 110,
+    "trial": 0,
+    "community_a": "t5_2rnve",
+    "community_b": "t5_2w2s8",
+    "norms": {
+      "t5_2rnve": {
+        "description": "Community A values respectful discourse and discourages inflammatory language, emphasizing the importance of constructive criticism and factual discussions. Violations often include personal attacks, name-calling, or dismissive remarks.",
+        "cited_ids": [
+          31659,
+          13160,
+          23885,
+          19928,
+          23812,
+          15590,
+          22046,
+          22166,
+          29756,
+          8783
+        ]
+      },
+      "t5_2w2s8": {
+        "description": "Community B appears to have a more aggressive and confrontational style, where insults and derogatory language are common. This community often allows for harsh critiques and does not prioritize civility, leading to more frequent violations related to personal attacks and disrespect.",
+        "cited_ids": [
+          20855,
+          18792,
+          12173,
+          27886,
+          31919,
+          21082,
+          27826,
+          19676,
+          32030,
+          9873
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 120,
+    "trial": 0,
+    "community_a": "t5_2rnve",
+    "community_b": "t5_2w2s8",
+    "norms": {
+      "t5_2rnve": {
+        "description": "Community A values respectful and constructive discourse, encouraging users to provide helpful information and insights without resorting to insults or derogatory language. Violations occur when users engage in personal attacks, use offensive language, or dismiss others' inquiries without constructive feedback.",
+        "cited_ids": [
+          23548,
+          12449,
+          14667,
+          21948,
+          15158,
+          30475,
+          17078,
+          27826,
+          29703,
+          20184
+        ]
+      },
+      "t5_2w2s8": {
+        "description": "Community B emphasizes respect and open-mindedness in discussions, yet allows for more aggressive and confrontational expressions. Violations are identified through derogatory remarks, aggressive language, and personal attacks, particularly when discussing sensitive topics such as gender identity and societal issues.",
+        "cited_ids": [
+          22166,
+          18785,
+          7217,
+          23885,
+          14911,
+          25416,
+          19040,
+          30187,
+          3529,
+          19047
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 130,
+    "trial": 0,
+    "community_a": "t5_2rnve",
+    "community_b": "t5_2w2s8",
+    "norms": {
+      "t5_2rnve": {
+        "description": "Community A emphasizes respectful discourse, discouraging personal attacks and derogatory language. Members are expected to engage constructively, focusing on the topic rather than resorting to insults or inflammatory comments.",
+        "cited_ids": [
+          4221,
+          23291,
+          23812,
+          22463,
+          5237,
+          18050,
+          15755,
+          1643,
+          19047,
+          27180
+        ]
+      },
+      "t5_2w2s8": {
+        "description": "Community B allows for a more aggressive and confrontational style of communication, where members frequently use insults and harsh language. This community may tolerate or even encourage responses that challenge others aggressively, reflecting a culture of toughness and bluntness.",
+        "cited_ids": [
+          4442,
+          17888,
+          30147,
+          6462,
+          21450,
+          12173,
+          3947,
+          19737,
+          27826,
+          18785
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 140,
+    "trial": 0,
+    "community_a": "t5_2rnve",
+    "community_b": "t5_2w2s8",
+    "norms": {
+      "t5_2rnve": {
+        "description": "Community A emphasizes respectful dialogue and discourages personal attacks or inflammatory statements. They value constructive criticism and encourage participants to engage meaningfully without resorting to insults or derogatory language.",
+        "cited_ids": [
+          1932,
+          4092,
+          18050,
+          19047,
+          20702,
+          22068,
+          25416,
+          6121,
+          5834,
+          10222
+        ]
+      },
+      "t5_2w2s8": {
+        "description": "Community B seems to allow for more aggressive and confrontational discourse, where personal attacks and derogatory remarks are more common. They focus on technical discussions but often include harsh criticisms of others' opinions or knowledge.",
+        "cited_ids": [
+          16962,
+          30147,
+          13012,
+          22584,
+          26439,
+          28083,
+          12501,
+          27826,
+          21202,
+          1851
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 150,
+    "trial": 0,
+    "community_a": "t5_2rnve",
+    "community_b": "t5_2w2s8",
+    "norms": {
+      "t5_2rnve": {
+        "description": "Community A emphasizes respectful discourse and discourages personal attacks or derogatory language. Violations are often identified by insults or aggressive tones directed at individuals rather than engaging in constructive conversation.",
+        "cited_ids": [
+          1648,
+          11253,
+          169,
+          13012,
+          30444,
+          27180,
+          28083,
+          30147
+        ]
+      },
+      "t5_2w2s8": {
+        "description": "Community B allows for a more aggressive and confrontational style of communication, where insults and personal attacks are more prevalent. Violations often include derogatory remarks and dismissive language directed at others.",
+        "cited_ids": [
+          10217,
+          5846,
+          16623,
+          19040,
+          25416,
+          25416,
+          32799,
+          22068
+        ]
+      }
+    }
+  }
+]

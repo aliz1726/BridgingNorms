@@ -1,0 +1,576 @@
+[
+  {
+    "n_samples": 10,
+    "trial": 0,
+    "community_a": "t5_2qho4",
+    "community_b": "t5_hcycg",
+    "norms": {
+      "t5_2qho4": {
+        "description": "Community A emphasizes a strong adherence to civility and respect in discussions, discouraging any form of abusive language or personal attacks. Comments that use derogatory terms or engage in insults are considered violations of this norm.",
+        "cited_ids": [
+          30888,
+          2297,
+          32726,
+          26065,
+          21065
+        ]
+      },
+      "t5_hcycg": {
+        "description": "Community B allows for more aggressive language and criticism, viewing such expressions as part of robust debate. While some comments may cross into personal attacks, the overall tolerance for harsh language suggests a different interpretation of civility.",
+        "cited_ids": [
+          11748,
+          30174,
+          13064,
+          21086
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 20,
+    "trial": 0,
+    "community_a": "t5_2qho4",
+    "community_b": "t5_hcycg",
+    "norms": {
+      "t5_2qho4": {
+        "description": "Community A values respectful discourse and discourages inflammatory language, focusing on civility and friendliness in discussions. Violations often include personal attacks, derogatory terms, and aggressive language.",
+        "cited_ids": [
+          11748,
+          21086,
+          29151,
+          30878,
+          1189
+        ]
+      },
+      "t5_hcycg": {
+        "description": "Community B prioritizes freedom of speech but maintains a standard against personal insults and excessive hostility. Violations typically involve derogatory remarks and aggressive confrontations rather than merely strong opinions.",
+        "cited_ids": [
+          11019,
+          32726,
+          21065,
+          26065,
+          16850
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 30,
+    "trial": 0,
+    "community_a": "t5_2qho4",
+    "community_b": "t5_hcycg",
+    "norms": {
+      "t5_2qho4": {
+        "description": "Community A emphasizes respectful discourse, discouraging insults and aggressive language. Violent or derogatory remarks are not tolerated, and members are expected to engage in constructive conversations while being considerate of others' feelings.",
+        "cited_ids": [
+          23534,
+          6187,
+          29151,
+          721,
+          11748,
+          21086,
+          5818,
+          15243,
+          30878,
+          860
+        ]
+      },
+      "t5_hcycg": {
+        "description": "Community B allows for more heated exchanges and aggressive language, often using personal attacks or insults. This community seems to prioritize freedom of expression over civility, leading to a wider acceptance of harsh or confrontational remarks.",
+        "cited_ids": [
+          26065,
+          27696,
+          10323,
+          28296,
+          4090,
+          31027,
+          16850,
+          24308,
+          1327,
+          21065
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 40,
+    "trial": 0,
+    "community_a": "t5_2qho4",
+    "community_b": "t5_hcycg",
+    "norms": {
+      "t5_2qho4": {
+        "description": "Community A emphasizes civility and respect in discussions, discouraging personal attacks and harsh language. It encourages constructive criticism and positive engagement.",
+        "cited_ids": [
+          25642,
+          2297,
+          21065,
+          24308,
+          31180,
+          27607,
+          26337,
+          32726,
+          28296,
+          10183,
+          27029,
+          22754,
+          8060,
+          31164,
+          26050,
+          3694,
+          31027,
+          2385,
+          28532,
+          4090,
+          21237
+        ]
+      },
+      "t5_hcycg": {
+        "description": "Community B's norms appear to allow for more aggressive and confrontational discourse, with harsher language and personal insults being more common. This community seems to tolerate a higher level of emotional expression, including hostility.",
+        "cited_ids": [
+          1001,
+          15295,
+          15243,
+          860,
+          21086,
+          5818,
+          21761,
+          30174,
+          29151,
+          7685,
+          11748,
+          13064,
+          4073,
+          1189,
+          19638,
+          18721
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 50,
+    "trial": 0,
+    "community_a": "t5_2qho4",
+    "community_b": "t5_hcycg",
+    "norms": {
+      "t5_2qho4": {
+        "description": "Community A emphasizes a norm of civility and respect in discussions, discouraging personal attacks and aggressive language. Comments that violate this norm often include insults, aggressive rhetoric, and derogatory language.",
+        "cited_ids": [
+          11231,
+          860,
+          15243,
+          29151,
+          2329,
+          21086,
+          4073,
+          12689,
+          26158,
+          30174,
+          29002,
+          5818,
+          1189,
+          8858,
+          9352,
+          7728,
+          11748,
+          19638,
+          18721
+        ]
+      },
+      "t5_hcycg": {
+        "description": "Community B's understanding of the norm appears to allow for more direct and confrontational language, with less emphasis on civility. Comments that violate this norm often include harsh criticisms, personal insults, and aggressive assertions that challenge others' viewpoints.",
+        "cited_ids": [
+          1327,
+          21065,
+          25642,
+          11019,
+          2385,
+          3270,
+          30888,
+          10183,
+          21617,
+          24308,
+          4090,
+          26065,
+          32726,
+          28296,
+          26050
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 60,
+    "trial": 0,
+    "community_a": "t5_2qho4",
+    "community_b": "t5_hcycg",
+    "norms": {
+      "t5_2qho4": {
+        "description": "Community A emphasizes respectful communication and discourages personal attacks, aiming for a friendly and constructive dialogue. Comments that insult or demean others are considered violations.",
+        "cited_ids": [
+          13064,
+          29002,
+          31746,
+          4073,
+          29100,
+          30174,
+          860,
+          7685,
+          2536,
+          1189,
+          5818,
+          32879
+        ]
+      },
+      "t5_hcycg": {
+        "description": "Community B allows for more aggressive and confrontational language, focusing on free expression even if it involves insults or harsh criticism. Violations occur when comments escalate to overtly hateful or derogatory language.",
+        "cited_ids": [
+          20674,
+          1327,
+          11019,
+          26050,
+          21237,
+          15271,
+          28173,
+          5729,
+          21617,
+          10183,
+          21065,
+          16850
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 70,
+    "trial": 0,
+    "community_a": "t5_2qho4",
+    "community_b": "t5_hcycg",
+    "norms": {
+      "t5_2qho4": {
+        "description": "Community A prioritizes civility and friendliness, expecting members to engage in respectful discourse without resorting to personal attacks or offensive language. Violations include aggressive insults and derogatory remarks.",
+        "cited_ids": [
+          12689,
+          13064,
+          15295,
+          20622,
+          29100,
+          5818
+        ]
+      },
+      "t5_hcycg": {
+        "description": "Community B emphasizes a friendly environment while allowing for blunt and candid discussions. While personal attacks are generally discouraged, the community tolerates a higher degree of expressiveness and emotional responses, even if they are harsh.",
+        "cited_ids": [
+          26050,
+          10183,
+          2362,
+          4090,
+          28296,
+          19085
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 80,
+    "trial": 0,
+    "community_a": "t5_2qho4",
+    "community_b": "t5_hcycg",
+    "norms": {
+      "t5_2qho4": {
+        "description": "Community A values respectful and constructive dialogue, aiming for supportive interactions that do not involve personal attacks or derogatory language. Violations often include insults, aggressive language, and failure to acknowledge differing perspectives.",
+        "cited_ids": [
+          21065,
+          5729,
+          2385,
+          19085,
+          26050,
+          3000,
+          10183,
+          25619
+        ]
+      },
+      "t5_hcycg": {
+        "description": "Community B appears to tolerate more aggressive discourse, including the use of insults and confrontational comments. Norms allow for a more direct and unfiltered expression of opinions, which can sometimes include personal attacks, indicating a more combative style of interaction.",
+        "cited_ids": [
+          23534,
+          5818,
+          4073,
+          8858,
+          29002,
+          19638,
+          2536,
+          11748
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 90,
+    "trial": 0,
+    "community_a": "t5_2qho4",
+    "community_b": "t5_hcycg",
+    "norms": {
+      "t5_2qho4": {
+        "description": "Community A values respectful dialogue and encourages understanding of differing perspectives, while discouraging personal attacks and inflammatory language. It promotes civility and friendliness in discussions.",
+        "cited_ids": [
+          16751,
+          28120,
+          29229,
+          12552,
+          2362,
+          10183,
+          18542,
+          12927,
+          18581,
+          4090,
+          24368,
+          14742,
+          11019,
+          28173,
+          5729,
+          21617
+        ]
+      },
+      "t5_hcycg": {
+        "description": "Community B tends to allow more aggressive and confrontational speech, often permitting insults and harsh criticisms. While it does have rules against hate speech and extreme violations, it appears to tolerate a wider range of expressions, including derogatory remarks.",
+        "cited_ids": [
+          4949,
+          5059,
+          25810,
+          8858,
+          32646,
+          29100,
+          29002,
+          32879,
+          30154,
+          21086,
+          23521,
+          28060,
+          19638,
+          12269,
+          15014,
+          11748
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 100,
+    "trial": 0,
+    "community_a": "t5_2qho4",
+    "community_b": "t5_hcycg",
+    "norms": {
+      "t5_2qho4": {
+        "description": "Community A prioritizes civility and respectful discourse, emphasizing friendly interactions and discouraging aggressive or insulting language. Comments that include personal attacks, derogatory remarks, or extreme negativity are deemed violations.",
+        "cited_ids": [
+          7843,
+          12223,
+          18542,
+          19085,
+          24308,
+          2385,
+          28296,
+          18581,
+          21237,
+          32027
+        ]
+      },
+      "t5_hcycg": {
+        "description": "Community B values straightforwardness and candid expression, often allowing for strong language and direct criticism, even if it may appear harsh. The threshold for what constitutes a violation is higher, as long as the comments engage in the broader discourse without overt personal attacks.",
+        "cited_ids": [
+          29002,
+          26258,
+          29100,
+          25618,
+          31011,
+          21086,
+          19749,
+          5030,
+          1189,
+          18015
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 110,
+    "trial": 0,
+    "community_a": "t5_2qho4",
+    "community_b": "t5_hcycg",
+    "norms": {
+      "t5_2qho4": {
+        "description": "Community A emphasizes civility and friendliness, encouraging supportive interactions and discouraging negative or disrespectful comments. The norm is to provide help and understanding, especially in difficult situations.",
+        "cited_ids": [
+          27805,
+          32027,
+          21237,
+          18743,
+          11142,
+          11019,
+          4090,
+          2362,
+          14914,
+          12223
+        ]
+      },
+      "t5_hcycg": {
+        "description": "Community B focuses on directness and often aggressive discourse, where insults and confrontational language are more accepted. The norm allows for robust debate, but it can lead to hostility and personal attacks.",
+        "cited_ids": [
+          19638,
+          25618,
+          29100,
+          21086,
+          1189,
+          1189,
+          26065,
+          11748,
+          13235,
+          8804
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 120,
+    "trial": 0,
+    "community_a": "t5_2qho4",
+    "community_b": "t5_hcycg",
+    "norms": {
+      "t5_2qho4": {
+        "description": "Community A values respectful discourse and civility. Comments that express disagreement or criticism should do so in a constructive and considerate manner without resorting to personal attacks or derogatory language.",
+        "cited_ids": [
+          32741,
+          4949,
+          24560,
+          31290,
+          25480,
+          19828,
+          27310,
+          11735,
+          27962,
+          1943
+        ]
+      },
+      "t5_hcycg": {
+        "description": "Community B allows for more direct and confrontational speech, often using humor or sarcasm. However, comments that cross the line into hate speech, personal attacks, or excessive negativity are considered violations.",
+        "cited_ids": [
+          31027,
+          4090,
+          9114,
+          10540,
+          12833,
+          23489,
+          25550,
+          15899,
+          14628,
+          10183
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 130,
+    "trial": 0,
+    "community_a": "t5_2qho4",
+    "community_b": "t5_hcycg",
+    "norms": {
+      "t5_2qho4": {
+        "description": "Community A emphasizes civility by promoting friendly exchanges and discouraging hostile remarks. It encourages users to engage in constructive dialogue while expressing their opinions respectfully, avoiding derogatory language and personal attacks.",
+        "cited_ids": [
+          3177,
+          25550,
+          14742,
+          22653,
+          11172,
+          20078,
+          12223,
+          17096,
+          22044,
+          24029
+        ]
+      },
+      "t5_hcycg": {
+        "description": "Community B values directness and bluntness, often prioritizing free expression over politeness. While it may allow for some harsh critiques, it still expects users to refrain from outright hate speech; however, users often push the boundaries of acceptable discourse.",
+        "cited_ids": [
+          11645,
+          32646,
+          25480,
+          12689,
+          25480,
+          18692,
+          5003,
+          15299,
+          31074,
+          21761
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 140,
+    "trial": 0,
+    "community_a": "t5_2qho4",
+    "community_b": "t5_hcycg",
+    "norms": {
+      "t5_2qho4": {
+        "description": "Community A emphasizes civility through respectful and supportive discourse, highlighting the importance of kindness and understanding towards others, especially in challenging situations. Insulting or demeaning language is considered a violation of this norm.",
+        "cited_ids": [
+          17096,
+          24024,
+          21065,
+          20078,
+          12600
+        ]
+      },
+      "t5_hcycg": {
+        "description": "Community B prioritizes directness and assertiveness, allowing for strong opinions and critical discussions. While civility is encouraged, the community accepts confrontational language as part of robust debate, with violations occurring primarily when comments devolve into personal attacks or hate speech.",
+        "cited_ids": [
+          20755,
+          23521,
+          22868,
+          31074,
+          18015
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 150,
+    "trial": 0,
+    "community_a": "t5_2qho4",
+    "community_b": "t5_hcycg",
+    "norms": {
+      "t5_2qho4": {
+        "description": "Community A emphasizes civility and respectful discourse, where comments should promote friendly interaction and avoid personal attacks or derogatory language.",
+        "cited_ids": [
+          2092,
+          32741,
+          1943,
+          25618,
+          13287,
+          16851,
+          13052,
+          11645,
+          13064,
+          3548
+        ]
+      },
+      "t5_hcycg": {
+        "description": "Community B places a strong emphasis on being friendly, expecting members to engage in supportive and constructive conversations, discouraging any form of hostility or insults.",
+        "cited_ids": [
+          1040,
+          5729,
+          13128,
+          14897,
+          18542,
+          852,
+          11019,
+          18581,
+          27805,
+          10024
+        ]
+      }
+    }
+  }
+]

@@ -1,0 +1,553 @@
+[
+  {
+    "n_samples": 10,
+    "trial": 0,
+    "community_a": "t5_2qh3p",
+    "community_b": "t5_2qhek",
+    "norms": {
+      "t5_2qh3p": {
+        "description": [
+          "Community A defines its norm by prohibiting comments that are disrespectful, objectifying, or not constructive. They specifically target comments that demean individuals or groups based on race or gender, as well as those that express crude or aggressive sentiments."
+        ],
+        "cited_ids": [
+          27056,
+          19398,
+          22631,
+          12932,
+          26309
+        ]
+      },
+      "t5_2qhek": {
+        "description": [
+          "Community B emphasizes the importance of kindness and constructive dialogue. Their moderation focuses on preventing trolling and disrespectful remarks, promoting a respectful exchange of ideas and discouraging aggressive language."
+        ],
+        "cited_ids": [
+          16510,
+          7986,
+          5319,
+          11660,
+          31871
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 20,
+    "trial": 0,
+    "community_a": "t5_2qh3p",
+    "community_b": "t5_2qhek",
+    "norms": {
+      "t5_2qh3p": {
+        "description": "Community A's norm focuses on discouraging disrespectful and objectifying remarks, as well as promoting constructive discussions. They tend to moderate comments that include offensive language or personal attacks, which they view as harmful to the community's atmosphere.",
+        "cited_ids": [
+          16510,
+          31871,
+          24854,
+          18034
+        ]
+      },
+      "t5_2qhek": {
+        "description": "Community B's norm emphasizes kindness and respect in discussions. They are more lenient towards critical opinions but draw the line at comments that devolve into insults or derogatory statements, particularly those that reflect underlying prejudices or disrespect towards individuals.",
+        "cited_ids": [
+          22631,
+          12932,
+          27056,
+          26309
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 30,
+    "trial": 0,
+    "community_a": "t5_2qh3p",
+    "community_b": "t5_2qhek",
+    "norms": {
+      "t5_2qh3p": {
+        "description": "Community A prioritizes constructive and respectful dialogue, discouraging comments that are disrespectful, objectifying, or unhelpful. They emphasize the importance of empathy and understanding in discussions.",
+        "cited_ids": [
+          29468,
+          27100,
+          16510,
+          18034,
+          2034
+        ]
+      },
+      "t5_2qhek": {
+        "description": "Community B focuses on an informal and sometimes provocative style of communication. They allow for more direct and critical comments, including trolling and dismissive remarks, provided they do not lead to outright hate speech.",
+        "cited_ids": [
+          12932,
+          6468,
+          5105,
+          22631,
+          27056
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 40,
+    "trial": 0,
+    "community_a": "t5_2qh3p",
+    "community_b": "t5_2qhek",
+    "norms": {
+      "t5_2qh3p": {
+        "description": "Community A emphasizes respectful discourse, avoiding derogatory language and personal attacks, while allowing for critique of content and storytelling. However, comments that are perceived as overly aggressive or dismissive of others' perspectives are flagged for violation.",
+        "cited_ids": [
+          26514,
+          19398,
+          26309,
+          5105,
+          22631,
+          4407,
+          4461,
+          12221,
+          20451,
+          27056
+        ]
+      },
+      "t5_2qhek": {
+        "description": "Community B maintains a more relaxed standard for conversation, permitting a wider range of expression including humor and sarcasm. However, comments that are outright disrespectful, inflammatory, or objectifying are moderated strictly to maintain a supportive environment.",
+        "cited_ids": [
+          14249,
+          19060,
+          31871,
+          16963,
+          7986,
+          24854,
+          2034,
+          5319,
+          29180,
+          29468
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 50,
+    "trial": 0,
+    "community_a": "t5_2qh3p",
+    "community_b": "t5_2qhek",
+    "norms": {
+      "t5_2qh3p": {
+        "description": "Community A moderates content to discourage disrespectful, objectifying, and non-constructive comments. They emphasize the importance of constructive dialogue and respectful communication among members.",
+        "cited_ids": [
+          16147,
+          19060,
+          14249,
+          18065,
+          31871,
+          25793,
+          7986,
+          2034,
+          16963,
+          11660
+        ]
+      },
+      "t5_2qhek": {
+        "description": "Community B focuses on maintaining a respectful discourse, specifically aiming to uphold a standard of kindness and civility. They encourage members to engage in conversations without resorting to insults or inflammatory remarks.",
+        "cited_ids": [
+          14191,
+          26309,
+          19398,
+          26514,
+          15720,
+          12221,
+          20451,
+          22631,
+          4407,
+          7737
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 60,
+    "trial": 0,
+    "community_a": "t5_2qh3p",
+    "community_b": "t5_2qhek",
+    "norms": {
+      "t5_2qh3p": {
+        "description": "Community A defines its norm as requiring respectful and constructive dialogue, emphasizing the importance of kindness and support within discussions. Comments that are disrespectful or objectifying are viewed as violations of this norm.",
+        "cited_ids": [
+          5319,
+          12039,
+          16147,
+          1820,
+          29449,
+          25793,
+          1488,
+          7986,
+          19060,
+          2034,
+          8499,
+          18065,
+          31042,
+          21090,
+          9938,
+          16963,
+          11660,
+          14249,
+          31871,
+          24854
+        ]
+      },
+      "t5_2qhek": {
+        "description": "Community B focuses on fostering an open forum for discussion, where diverse opinions are expressed freely. However, comments that are perceived as trolling or disrespectful, particularly those that incite negativity or hostility, are not tolerated.",
+        "cited_ids": [
+          23357,
+          32038,
+          2975,
+          14191,
+          7853,
+          1523,
+          20072,
+          15720,
+          4407,
+          2387,
+          12239,
+          5105,
+          20451,
+          26309,
+          28743,
+          22631,
+          4461
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 70,
+    "trial": 0,
+    "community_a": "t5_2qh3p",
+    "community_b": "t5_2qhek",
+    "norms": {
+      "t5_2qh3p": {
+        "description": "Community A emphasizes respectful discourse and kindness, discouraging disrespectful or objectifying comments. Violation comments often display aggressive language or disrespect towards individuals or groups, which is not tolerated.",
+        "cited_ids": [
+          5319,
+          12039,
+          17360,
+          16963,
+          16147,
+          29180,
+          11660,
+          18065,
+          25741,
+          18034
+        ]
+      },
+      "t5_2qhek": {
+        "description": "Community B allows for a more critical and sometimes harsh dialogue, where users may express dissatisfaction with content, creators, or other users without necessarily being labeled as disrespectful. However, there are still clear boundaries regarding offensive or derogatory remarks.",
+        "cited_ids": [
+          32004,
+          26514,
+          4407,
+          30630,
+          1009,
+          14191,
+          22631,
+          13755,
+          12221,
+          17124
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 80,
+    "trial": 0,
+    "community_a": "t5_2qh3p",
+    "community_b": "t5_2qhek",
+    "norms": {
+      "t5_2qh3p": {
+        "description": "Community A values constructive discourse, focusing on respectful engagement and thoughtful critique. Comments that dismiss others or employ sarcasm without substance are considered violations.",
+        "cited_ids": [
+          2886,
+          1009,
+          21417,
+          1274,
+          4461,
+          29601,
+          8544,
+          27056
+        ]
+      },
+      "t5_2qhek": {
+        "description": "Community B emphasizes kindness and respect, prioritizing positive interactions. Comments that are derogatory or inflammatory towards others, particularly based on gender or personal attributes, are viewed as violations.",
+        "cited_ids": [
+          20429,
+          25022,
+          10860,
+          9092,
+          16213,
+          12039,
+          12008,
+          31500
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 90,
+    "trial": 0,
+    "community_a": "t5_2qh3p",
+    "community_b": "t5_2qhek",
+    "norms": {
+      "t5_2qh3p": {
+        "description": [
+          "Community A values respectful discourse and constructive criticism, discouraging comments that are disrespectful, derogatory, or overly aggressive in tone. The community aims to foster a positive environment for discussion, and comments that violate this expectation are moderated accordingly."
+        ],
+        "cited_ids": [
+          7777,
+          14910,
+          3785,
+          20072,
+          26309,
+          31098,
+          24386,
+          30486,
+          23779,
+          8544
+        ]
+      },
+      "t5_2qhek": {
+        "description": [
+          "Community B allows for more direct and provocative discussions, often embracing humor or sarcasm even when it borders on disrespect. Comments that challenge social norms or express strong opinions may be accepted, but blatant disrespect or hate speech is moderated."
+        ],
+        "cited_ids": [
+          309,
+          21090,
+          21943,
+          28573,
+          25741,
+          1488,
+          17260,
+          15571,
+          16235,
+          1009
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 100,
+    "trial": 0,
+    "community_a": "t5_2qh3p",
+    "community_b": "t5_2qhek",
+    "norms": {
+      "t5_2qh3p": {
+        "description": "Community A emphasizes respectful dialogue and discourages disrespectful or objectifying comments, particularly regarding identity and representation. They prioritize constructive criticism and discourage harmful stereotypes or derogatory language.",
+        "cited_ids": [
+          14278,
+          26821,
+          12239,
+          31098,
+          24386,
+          29601,
+          30183,
+          8546,
+          2732
+        ]
+      },
+      "t5_2qhek": {
+        "description": "Community B allows for a broader range of expressions, including more aggressive or confrontational speech. While they still value respectful discussion, there is a tolerance for harsh criticism, personal attacks, and explicit content that may not be considered constructive.",
+        "cited_ids": [
+          1820,
+          31042,
+          19125,
+          18065,
+          8008,
+          18034,
+          29180,
+          16963,
+          18125
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 110,
+    "trial": 0,
+    "community_a": "t5_2qh3p",
+    "community_b": "t5_2qhek",
+    "norms": {
+      "t5_2qh3p": {
+        "description": [
+          "Community A emphasizes constructive and respectful discourse, valuing diverse opinions while discouraging personal attacks and derogatory remarks. Violations are identified by disrespectful language and inflammatory comments that deviate from constructive conversation."
+        ],
+        "cited_ids": [
+          28418,
+          5833,
+          13755,
+          14191,
+          19201,
+          26030
+        ]
+      },
+      "t5_2qhek": {
+        "description": [
+          "Community B focuses on freedom of expression, encouraging candid discussions even when they involve sensitive topics. However, it also sets boundaries against hate speech and personal insults, viewing such violations as harmful to the community's integrity."
+        ],
+        "cited_ids": [
+          26029,
+          7198,
+          11108,
+          21886,
+          14191,
+          19125
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 120,
+    "trial": 0,
+    "community_a": "t5_2qh3p",
+    "community_b": "t5_2qhek",
+    "norms": {
+      "t5_2qh3p": {
+        "description": "Community A emphasizes respectful dialogue and constructive criticism, discouraging comments that are offensive, derogatory, or aggressive towards individuals or groups. They uphold a standard that values kindness and understanding, particularly in discussions related to personal experiences and relationships.",
+        "cited_ids": [
+          7629,
+          23414,
+          3686,
+          4996,
+          11839,
+          12970,
+          12008,
+          14569,
+          32676
+        ]
+      },
+      "t5_2qhek": {
+        "description": "Community B appears to have a more relaxed attitude towards discourse, often permitting comments that are sarcastic, confrontational, or critical. This community allows for a wider range of expression, including harsh critiques and opinions that may be considered insensitive or disrespectful in other contexts.",
+        "cited_ids": [
+          20451,
+          3785,
+          17528,
+          28491,
+          10129,
+          5833,
+          1698,
+          1009,
+          26309
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 130,
+    "trial": 0,
+    "community_a": "t5_2qh3p",
+    "community_b": "t5_2qhek",
+    "norms": {
+      "t5_2qh3p": {
+        "description": "Community A prioritizes respectful discourse, discouraging any form of disrespect, objectification, or trolling. They expect users to engage constructively and avoid making derogatory remarks about others, particularly regarding gender and race.",
+        "cited_ids": [
+          14166,
+          18533,
+          10296,
+          6468,
+          16978,
+          19204,
+          11985,
+          5833,
+          16377,
+          16353
+        ]
+      },
+      "t5_2qhek": {
+        "description": "Community B allows for more candid and explicit discussions, including humor and provocative statements. While they may have rules against outright hate speech and personal attacks, they tend to tolerate a broader range of speech, including discussions that could be seen as disrespectful or objectifying.",
+        "cited_ids": [
+          4727,
+          21943,
+          25599,
+          5768,
+          8008,
+          29180,
+          18034,
+          14249,
+          29869,
+          840
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 140,
+    "trial": 0,
+    "community_a": "t5_2qh3p",
+    "community_b": "t5_2qhek",
+    "norms": {
+      "t5_2qh3p": {
+        "description": "Community A emphasizes a norm of respectful discourse where personal attacks and derogatory remarks are frowned upon. It encourages constructive criticism and thoughtful engagement while prohibiting disrespect and inflammatory language.",
+        "cited_ids": [
+          25995,
+          1569,
+          19994,
+          5023,
+          9607,
+          13587,
+          12952,
+          8644,
+          14278,
+          31098
+        ]
+      },
+      "t5_2qhek": {
+        "description": "Community B exhibits a more lenient attitude towards strong language and personal opinions, allowing for a broader range of expression, including humor and sarcasm. However, it still maintains boundaries against outright hate speech and discrimination.",
+        "cited_ids": [
+          25022,
+          11985,
+          21016,
+          14569,
+          11108,
+          11108,
+          10296,
+          27693,
+          16235,
+          19125
+        ]
+      }
+    }
+  },
+  {
+    "n_samples": 150,
+    "trial": 0,
+    "community_a": "t5_2qh3p",
+    "community_b": "t5_2qhek",
+    "norms": {
+      "t5_2qh3p": {
+        "description": "Community A promotes constructive and respectful dialogue, encouraging members to share their thoughts in a non-disrespectful manner. This includes avoiding derogatory language and objectification while fostering open discussions about sensitive topics.",
+        "cited_ids": [
+          17068,
+          7629,
+          1779,
+          10681,
+          2965,
+          4671,
+          18034,
+          11108,
+          27537,
+          18065
+        ]
+      },
+      "t5_2qhek": {
+        "description": "Community B defines its norm by rejecting any form of disrespectful or objectifying comments. The community actively moderates comments that promote hate speech, racism, or personal attacks, ensuring that discussions remain civil and constructive.",
+        "cited_ids": [
+          27869,
+          12221,
+          22631,
+          10129,
+          14191,
+          18034,
+          21016,
+          1109,
+          1009,
+          10380
+        ]
+      }
+    }
+  }
+]
